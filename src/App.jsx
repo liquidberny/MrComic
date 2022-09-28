@@ -5,10 +5,12 @@ import Navbar from './components/Navbar';
 import Featured from './components/Featured';
 import Footer from './components/Footer';
 import Card from './components/Card';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 function App() {
 
   return (
-    <div>
+    <div className='container'>
       <header>
         <Navbar />
       </header>
