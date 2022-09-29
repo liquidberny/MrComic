@@ -17,7 +17,7 @@ function App() {
       <main>
         <Featured />
         <Card />
-        <h1>Aqui van las categorias, archivos, post populares, post recientes</h1>
+        
       </main>
 
       <footer>
