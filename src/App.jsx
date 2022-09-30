@@ -16,6 +16,7 @@ function App() {
       </header>
       <main>
         <Featured />
+        <br />
         <CardSection />
         <br />
       </main>
