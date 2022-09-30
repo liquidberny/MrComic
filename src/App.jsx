@@ -20,13 +20,15 @@ function App() {
         <OurNavbar />
       </header>
 
+      <Router>
 
-      <Switch>
-        <Route path="/">
-          <Landing />
-        </Route>
+        <Switch>
+          <Route path="/">
+            <Landing />
+          </Route>
 
-      </Switch>
+        </Switch>
+      </Router>
       <footer>
         <Footer />
         <br />
