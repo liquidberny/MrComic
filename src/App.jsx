@@ -1,7 +1,7 @@
 // main
 import React from 'react';
 //components
-import Navbar from './components/Navbar';
+import OurNavbar from './components/Navbar';
 import Featured from './components/Featured';
 import Footer from './components/Footer';
 import CardSection from './components/CardSection';
@@ -12,7 +12,7 @@ function App() {
   return (
     <div className='container'>
       <header>
-        <Navbar />
+        <OurNavbar />
       </header>
       <main>
         <Featured />
@@ -23,6 +23,7 @@ function App() {
 
       <footer>
         <Footer />
+        <br/>
       </footer>
 
 
