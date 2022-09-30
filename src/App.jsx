@@ -2,10 +2,15 @@
 import React from 'react';
 //components
 import OurNavbar from './components/Navbar';
-import Featured from './components/Featured';
 import Footer from './components/Footer';
-import CardSection from './components/CardSection';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Landing from './pages/Landing';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 function App() {
 
@@ -14,16 +19,17 @@ function App() {
       <header>
         <OurNavbar />
       </header>
-      <main>
-        <Featured />
-        <br />
-        <CardSection />
-        <br />
-      </main>
 
+
+      <Switch>
+        <Route path="/">
+          <Landing />
+        </Route>
+
+      </Switch>
       <footer>
         <Footer />
-        <br/>
+        <br />
       </footer>
 
 
