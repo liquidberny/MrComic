@@ -1,12 +1,12 @@
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Card from 'react-bootstrap/Card';
-import Nav from 'react-bootstrap/Nav';
-import Button from 'react-bootstrap/Button';
 import React, { useState } from 'react';
-import Tab from 'react-bootstrap/Tab';
-import Tabs from 'react-bootstrap/Tabs';
+import {
+    Row,
+    Container,
+    Col,
+    Card,
+    Tab,
+    Tabs
+    } from 'react-bootstrap';
 const Footer = () => {
 
     const [key, setKey] = useState('popular');
