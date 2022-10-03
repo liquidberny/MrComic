@@ -8,14 +8,20 @@ import {
 } from 'react-bootstrap';
 import { React, useState } from 'react';
 import { LoginModal } from '../Login'
+import { RegisterModal } from '../Register';
 const OurNavar = () => {
-    const [modalShow, setModalShow] = useState(false);
+    const [loginShow, setLoginShow] = useState(false);
+    const [registerShow, setRegisterShow] = useState(false);
 
     return (
         <Navbar bg="light" expand="lg">
             <LoginModal
-                show={modalShow}
-                onHide={() => setModalShow(false)}
+                show={loginShow}
+                onHide={() => setLoginShow(false)}
+            />
+            <RegisterModal
+                show={registerShow}
+                onHide={() => setLoginShow(false)}
             />
             <Container fluid>
                 <Navbar.Brand href="#">Mr. Comics</Navbar.Brand>
@@ -30,11 +36,11 @@ const OurNavar = () => {
                         <Nav.Link href="#action2">About Us</Nav.Link>
                         <NavDropdown title="Login/Register" id="navbarScrollingDropdown">
                             <NavDropdown.Item href="#action3"></NavDropdown.Item>
-                            <NavDropdown.Item onClick={() => setModalShow(true)}>
+                            <NavDropdown.Item onClick={() => setLoginShow(true)}>
                                 Login
                             </NavDropdown.Item>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item href="#action5">
+                            <NavDropdown.Item onClick={() => setRegisterShow(true)}>
                                 Register
                             </NavDropdown.Item>
                         </NavDropdown>
