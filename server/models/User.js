@@ -4,7 +4,6 @@ const User = new mongoose.Schema({
     name: String,
     email: String,
     password: String,
-    dateOfBirth: Date
     // logged: {
     //     type: 'boolean',
     //     default: false,
