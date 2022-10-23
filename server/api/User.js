@@ -1,94 +1,94 @@
 const express = require('express');
 const router = express.Router();
-const UserModel = require('./../models/User')
+const User = require('./../models/User')
 
 //password
 const bcrypt = require('bcrypt');
 //sign up
 router.post('/signup', (req, res) => {
-
-    let { name, email, password } = req.body;
-    name = name.trim();;
+    let { name, email, password, test } = req.body;
+    name = name.trim();
     email = email.trim();
     password = password.trim();
-
-    if (name === "" || email === "" || password === "") {
+    if (name == "" || email == "" || password == "") {
         res.json({
             status: "FAILED",
-            messsage: "Empty input fields!"
+            message: "Empty input fields!"
         });
-    } else if (!/^[a-zA-Z]*$/.test(name)) {
+    } else if (!/[^0-9\.\,\"\?\!\;\:\#\$\%\&\(\)\*\+\-\/\<\>\=\@\[\]\\\^\_\{\}\|\~]*$/.test(name)) {
         res.json({
             status: "FAILED",
-            messsage: "Invalid name entered"
-        });
-    } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
+            message: "Invalid name entry"
+        })
+    } else if (!/^([A-Z|a-z|0-9](\.|_){0,1})+[A-Z|a-z|0-9]\@([A-Z|a-z|0-9])+((\.){0,1}[A-Z|a-z|0-9]){2}\.[a-z]{2,3}$/.test(email)) {
         res.json({
             status: "FAILED",
-            messsage: "Invalid email entered"
-        });
-    } else if (password.length < 8) {
-        res.json({
-            status: "FAILED",
-            messsage: "Password is too short"
-        });
+            message: "Invalid email entered"
+        })
+        //MM-DD-YY
     } else {
-        //check if user exist
-        UserModel.find({ email }).then(result => {
+        //Checking if user already exists
+        User.find({ email }).then(result => {
             if (result.length) {
-                //user already exist
+                // A user already exists
                 res.json({
                     status: "FAILED",
-                    messsage: "User whit te provided email already exist"
-                });
+                    message: "User with the provided email already exists"
+                })
             } else {
-                //try to create new user
-
-                //password handling
+                // Try to create new user
+            
+                //Password handling
                 const saltRounds = 10;
                 bcrypt.hash(password, saltRounds).then(hashedPassword => {
-                    const newUser = new UserModel({
+                    const newUser = new User({
                         name,
                         email,
-                        password: hashedPassword
+                        password: hashedPassword,
                     });
 
                     newUser.save().then(result => {
                         res.json({
-                            status: "SUCCSESS",
-                            messsage: "Singup successful",
+                            status: "SUCCESS",
+                            message: "Sign up successful!",
                             data: result
-                        });
-                    }).catch(err => {
+                        })
+                    })
+                        .catch(err => {
+                            res.json({
+                                status: "FAILED",
+                                message: "An error occurred while saving user account!"
+                            })
+                        })
+                })
+                    .catch(err => {
                         res.json({
                             status: "FAILED",
-                            messsage: "An error ocurred while saving user acount"
-                        });
+                            message: "An error occurred while hashing password!"
+                        })
                     })
-
-                }).catch(err => {
-                    res.json({
-                        status: "FAILED",
-                        messsage: "An error ocurred while hashing passwort"
-                    });
-                })
-
             }
 
         }).catch(err => {
-            console.log(err)
+            console.log(err);
             res.json({
                 status: "FAILED",
-                messsage: "an error ocurred while checking for existing user"
+                message: "An error ocurred while checking for existing user!"
             });
-        })
+        });
+
+
+
     }
-})
+
+
+});
+
 
 
 //sign in
 router.post('/signup', (req, res) => {
-    
+
 })
 
 module.exports = router;
