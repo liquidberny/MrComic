@@ -1,6 +1,31 @@
 import { Button, Modal } from "react-bootstrap";
-import {Form, InputGroup} from 'react-bootstrap';
+// import {Form, InputGroup} from 'react-bootstrap';
+import {
+    StyledFormButton,
+    colors,
+    ButtonGroup,
+} from '../Styles';
+
+//Formik
+import { Formik, Form } from 'formik';
+import { TextInput } from '../FormLib';
+import * as Yup from 'yup';
+
+//Icons
+import { FiMail, FiLock } from 'react-icons/fi'
+
+//Rings
+import { Rings } from 'react-loader-spinner'
+
+//Auth & redux
+
+import { connect } from 'react-redux';
+import { loginUser } from '../../auth/actions/userActions'
+import { useHistory } from "react-router-dom";
+
+
 export function LoginModal(props) {
+    const navigate = useHistory();
     return (
         <Modal
             {...props}
@@ -8,30 +33,65 @@ export function LoginModal(props) {
             aria-labelledby="contained-modal-title-vcenter"
             centered
         >
-            <Modal.Header closeButton>
-                <Modal.Title id="contained-modal-title-vcenter">
-                    Please identify yourself
-                </Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-                <InputGroup className="mb-3">
-                    <Form.Control
-                        placeholder="Username"
-                        aria-label="Username"
-                        aria-describedby="basic-addon1"
-                    />
-                </InputGroup>
-                <InputGroup className="mb-3">
-                    <Form.Control
-                        placeholder="Password"
-                        aria-label="Password"
-                        aria-describedby="basic-addon1"
-                    />
-                </InputGroup>
-            </Modal.Body>
-            <Modal.Footer>
-                <Button onClick={props.onHide}>Login</Button>
-            </Modal.Footer>
+            <Formik
+                initialValues={{
+                    email: "",
+                    password: "",
+                }}
+                validationSchema={Yup.object({
+                    email: Yup.string()
+                        .email("Invalid email address")
+                        .required("Required"),
+                    password: Yup.string()
+                        .min(8, "Password is too short")
+                        .max(30, "Password is too long")
+                        .required("Required"),
+                })}
+                onSubmit={(values, { setSubmitting, setFieldError }) => {
+                    console.log(values);
+                    loginUser(values, navigate,
+                        setFieldError, setSubmitting);
+                }}>
+                {({ isSubmitting }) => (
+                    <Form>
+                        <TextInput
+                            name="email"
+                            type="text"
+                            label="Email Address"
+                            placeholder="algo@algo.com"
+                            icon={<FiMail />}
+                        />
+
+                        <TextInput
+                            name="password"
+                            type="password"
+                            label="Password"
+                            placeholder="*******"
+                            icon={<FiLock />}
+                        />
+
+                        <ButtonGroup>
+                            {!isSubmitting &&
+                                <StyledFormButton
+                                    type="submit">
+                                    Login
+                                </StyledFormButton>}
+                            {isSubmitting && (
+                                <Rings
+                                    color={colors.theme}
+                                    height={100}
+                                    width={100}
+                                    radius="6"
+                                    wrapperStyle={{}}
+                                    wrapperClass=""
+                                    visible={true}
+                                    ariaLabel="rings-loading"
+                                />
+                            )}
+                        </ButtonGroup>
+                    </Form>
+                )}
+            </Formik>
         </Modal>
     );
 } 
