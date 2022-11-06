@@ -1,7 +1,8 @@
 import axios from "axios"
+import { NavLink } from "react-router-dom";
 import { sessionService } from "redux-react-session";
 
-export const loginUser = (credentials, setFieldError, setSubmitting) => {
+export const loginUser = (credentials, navigate, setFieldError, setSubmitting) => {
     axios.post("http://localhost:3001/user/signin",
     credentials,
     {
@@ -11,8 +12,8 @@ export const loginUser = (credentials, setFieldError, setSubmitting) => {
     }
     ).then((response) => {
         const {data} = response;
-
-        if (data.success === false) {
+    console.log(data, 'antes del if');
+        if (data.status === 'FAILED') {
             const {message} = data;
 
             if (message.includes("credentials")){
@@ -21,7 +22,7 @@ export const loginUser = (credentials, setFieldError, setSubmitting) => {
             } else if (message.includes("password")){
                 setFieldError("password", message);
             }
-        } else if (data.success === true) {
+        } else if (data.status === "SUCCESS") {
             const userData = data.data;
             console.log("user data :", userData);
             console.log(userData.accessToken);
@@ -29,7 +30,7 @@ export const loginUser = (credentials, setFieldError, setSubmitting) => {
 
             sessionService.saveSession(token).then(() => {
                 sessionService.saveUser(userData).then(() => {
-                    // navigate.push("/dashboard");
+                    navigate.push("/")
                 }).catch(err => console.error(err))
             }).catch(err => console.error(err))
         }

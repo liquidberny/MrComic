@@ -15,7 +15,8 @@ export const colors = {
     dark1: "#1F2937",
     dark2: "#4B5563",
     dark3: "#9CA3AF",
-    red: "#DC2626"
+    red: "#DC2626",
+    blue: "#84aaf0",
 }
 
 //Styled components
@@ -119,15 +120,15 @@ padding: 10px;
 width: 150px;
 background-color: transpartent;
 font-size: 16px;
-border: 2px solid ${colors.theme};
+border: 2px solid ${colors.dark1};
 border-raduis: 20px;
-color: ${colors.theme};
+color: ${colors.dark1};
 transition: ease-in-out 0.3s;
 outline: 0;
 
 &:hover{
-    background-color: ${colors.theme};
-    color: ${colors.primary};
+    background-color: ${colors.blue};
+    color: ${colors.dark1};
     cursor: pointer;
     }
 `;

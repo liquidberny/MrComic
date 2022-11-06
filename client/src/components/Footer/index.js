@@ -60,16 +60,16 @@ const Footer = () => {
 
                 <hr />
                 <Col md={4}>
-                    <a href="">Home</a>
+                    <a href="/">Home</a>
                     <a> | </a>
-                    <a href="">About Us</a>
+                    <a href="/">About Us</a>
                     <a> | </a>
-                    <a href="">Contact Us</a>
+                    <a href="/">Contact Us</a>
                 </Col>
                 {/* <Col md={2}>A cerca de nosotros</Col>
                 <Col md={1}>Contactanos</Col> */}
                 <Col md={{ span: 4, offset: 4 }} align="right">
-                    <a href="">Copyright</a>
+                    <a href="/">Copyright</a>
                 </Col>
             </Row>
         </Container>
