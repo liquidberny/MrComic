@@ -11,31 +11,37 @@ import { TextInput } from "../../components/FormLib";
 import * as Yup from "yup";
 
 //Icons
-import { FiMail, FiLock,  FiUser } from "react-icons/fi";
+import { FiMail, FiLock, FiUser } from "react-icons/fi";
 import { makeStyles } from '@material-ui/styles';
 import theme from '../../styles';
 //Audio-Spinner
 import { Rings } from "react-loader-spinner";
 
 //Auth&redux
-import { signupUser } from "../../auth/actions/userActions";
+import { signupUser } from '../../auth/actions/userActions';
+import { loginUser } from '../../auth/actions/userActions';
+
 import { useHistory } from "react-router-dom";
 
-const Signup = ({ signupUser }) => {
+const Signup = ({ loginUser }) => {
     const navigate = useHistory();
-    const classes = useStyles();    
+    const classes = useStyles();
+
     return (
         <div className={classes.container}>
             <StyledFormArea>
-                <StyledTitle color={colors.dark1} size={30}>
-                    Register
+
+                <StyledTitle
+                    color={colors.dark1}
+                    size={30}>
+                    Sign up
                 </StyledTitle>
                 <Formik
                     initialValues={{
                         email: "",
                         password: "",
                         repeatPassword: "",
-                        name: "",
+                        name: ""
                     }}
                     validationSchema={Yup.object({
                         email: Yup.string()
@@ -46,22 +52,23 @@ const Signup = ({ signupUser }) => {
                             .max(30, "Password is too long")
                             .required("Required"),
                         name: Yup.string().required("Required"),
-                        dateOfBirth: Yup.date().required("Required"),
                         repeatPassword: Yup.string()
                             .required("Required")
                             .oneOf([Yup.ref("password")], "Password must match"),
                     })}
                     onSubmit={(values, { setSubmitting, setFieldError }) => {
-                        signupUser(values, navigate, setFieldError, setSubmitting);
-                    }}
-                >
+                        console.log(values);
+                        signupUser(values, navigate,
+                            setFieldError, setSubmitting);
+                    }}>
                     {({ isSubmitting }) => (
                         <Form>
+
                             <TextInput
                                 name="name"
                                 type="text"
-                                label="Full name"
-                                placeholder="Parque La Ruina"
+                                label="User Name"
+                                placeholder="John Johnson"
                                 icon={<FiUser />}
                             />
 
@@ -69,7 +76,7 @@ const Signup = ({ signupUser }) => {
                                 name="email"
                                 type="text"
                                 label="Email Address"
-                                placeholder="algo@algo.com"
+                                placeholder="email@somethin.com"
                                 icon={<FiMail />}
                             />
 
@@ -80,21 +87,19 @@ const Signup = ({ signupUser }) => {
                                 placeholder="*******"
                                 icon={<FiLock />}
                             />
-
                             <TextInput
                                 name="repeatPassword"
                                 type="password"
-                                label="Repeat password"
+                                label="Repeat Password"
                                 placeholder="*******"
                                 icon={<FiLock />}
                             />
-
                             <ButtonGroup>
-                                {!isSubmitting && (
-                                    <StyledFormButton type="submit">
-                                        Register
-                                    </StyledFormButton>
-                                )}
+                                {!isSubmitting &&
+                                    <StyledFormButton
+                                        type="submit">
+                                        Sign Un
+                                    </StyledFormButton>}
                                 {isSubmitting && (
                                     <Rings
                                         color={colors.theme}
@@ -111,10 +116,11 @@ const Signup = ({ signupUser }) => {
                         </Form>
                     )}
                 </Formik>
+
             </StyledFormArea>
             <br></br>
         </div>
-    );
+    )
 };
 const useStyles = makeStyles({
     container: {

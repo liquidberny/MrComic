@@ -30,6 +30,7 @@ export const loginUser = (credentials, navigate, setFieldError, setSubmitting) =
             sessionService.saveSession(token).then(() => {
                 sessionService.saveUser(userData).then(() => {
                     navigate.push("/")
+                    
                 }).catch(err => console.error(err))
             }).catch(err => console.error(err))
         }
@@ -41,7 +42,8 @@ export const loginUser = (credentials, navigate, setFieldError, setSubmitting) =
 } 
 
 export const signupUser = (credentials, history, setFieldError, setSubmitting) => {
-    return (dispatch) =>
+    console.log("user actions")
+    
     axios.post("http://localhost:3001/user/signup",
     credentials,
     {
@@ -68,9 +70,9 @@ export const signupUser = (credentials, history, setFieldError, setSubmitting) =
 
         } else if (data.status === "SUCCESS") {
             //Login user after succesful signup
-            const {email, password} = credentials;
+            // const {email, password} = credentials;
+            history.push("/")
 
-            dispatch (loginUser({email, password}, history, setFieldError, setSubmitting))
         }
     }).catch(err => console.error(err))
 };
