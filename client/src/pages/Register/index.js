@@ -4,44 +4,38 @@ import {
     StyledTitle,
     colors,
     ButtonGroup,
-} from '../../components/Styles';
-
-import { makeStyles } from '@material-ui/styles';
-import theme from '../../styles';
+} from "../../components/Styles";
 //Formik
-import { Formik, Form } from 'formik';
-import { TextInput } from '../../components/FormLib';
-import * as Yup from 'yup';
+import { Formik, Form } from "formik";
+import { TextInput } from "../../components/FormLib";
+import * as Yup from "yup";
 
 //Icons
-import { FiMail, FiLock } from 'react-icons/fi'
+import { FiMail, FiLock,  FiUser } from "react-icons/fi";
+import { makeStyles } from '@material-ui/styles';
+import theme from '../../styles';
+//Audio-Spinner
+import { Rings } from "react-loader-spinner";
 
-//Rings
-import { Rings } from 'react-loader-spinner'
-
-//Auth & redux
-
-import { connect } from 'react-redux';
-import { loginUser } from '../../auth/actions/userActions';
+//Auth&redux
+import { signupUser } from "../../auth/actions/userActions";
 import { useHistory } from "react-router-dom";
 
-const Login = ({ loginUser }) => {
+const Signup = ({ signupUser }) => {
     const navigate = useHistory();
-    const classes = useStyles();
-
+    const classes = useStyles();    
     return (
         <div className={classes.container}>
             <StyledFormArea>
-                
-                <StyledTitle
-                    color={colors.dark1}
-                    size={30}>
-                    Log in
+                <StyledTitle color={colors.dark1} size={30}>
+                    Register
                 </StyledTitle>
                 <Formik
                     initialValues={{
                         email: "",
                         password: "",
+                        repeatPassword: "",
+                        name: "",
                     }}
                     validationSchema={Yup.object({
                         email: Yup.string()
@@ -51,19 +45,31 @@ const Login = ({ loginUser }) => {
                             .min(8, "Password is too short")
                             .max(30, "Password is too long")
                             .required("Required"),
+                        name: Yup.string().required("Required"),
+                        dateOfBirth: Yup.date().required("Required"),
+                        repeatPassword: Yup.string()
+                            .required("Required")
+                            .oneOf([Yup.ref("password")], "Password must match"),
                     })}
                     onSubmit={(values, { setSubmitting, setFieldError }) => {
-                        console.log(values);
-                        loginUser(values, navigate,
-                            setFieldError, setSubmitting);
-                    }}>
+                        signupUser(values, navigate, setFieldError, setSubmitting);
+                    }}
+                >
                     {({ isSubmitting }) => (
                         <Form>
+                            <TextInput
+                                name="name"
+                                type="text"
+                                label="Full name"
+                                placeholder="Parque La Ruina"
+                                icon={<FiUser />}
+                            />
+
                             <TextInput
                                 name="email"
                                 type="text"
                                 label="Email Address"
-                                placeholder="email@somethin.com"
+                                placeholder="algo@algo.com"
                                 icon={<FiMail />}
                             />
 
@@ -75,12 +81,20 @@ const Login = ({ loginUser }) => {
                                 icon={<FiLock />}
                             />
 
+                            <TextInput
+                                name="repeatPassword"
+                                type="password"
+                                label="Repeat password"
+                                placeholder="*******"
+                                icon={<FiLock />}
+                            />
+
                             <ButtonGroup>
-                                {!isSubmitting &&
-                                    <StyledFormButton
-                                        type="submit">
-                                        Login
-                                    </StyledFormButton>}
+                                {!isSubmitting && (
+                                    <StyledFormButton type="submit">
+                                        Register
+                                    </StyledFormButton>
+                                )}
                                 {isSubmitting && (
                                     <Rings
                                         color={colors.theme}
@@ -97,14 +111,11 @@ const Login = ({ loginUser }) => {
                         </Form>
                     )}
                 </Formik>
-                {/* <ExtraText>
-                    Forgotten password? <TextLink to ="/forgottenpassword">Reset it</TextLink>
-                </ExtraText> */}
             </StyledFormArea>
             <br></br>
         </div>
-    )
-}
+    );
+};
 const useStyles = makeStyles({
     container: {
         ...theme.globals.containerYFlexstart,
@@ -114,8 +125,4 @@ const useStyles = makeStyles({
         },
     }
 });
-const mapStateToProps = ({session}) => ({
-    checked: session.checked
-}) 
-
-export default connect(mapStateToProps, {loginUser})(Login);
+export default Signup;

@@ -6,6 +6,7 @@ import Footer from './components/Footer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Landing from './pages/Landing';
 import Login from './pages/Login';
+import Signup from './pages/Register';
 import {
   BrowserRouter as Router,
   Switch,
@@ -28,6 +29,7 @@ function App() {
         <Switch>
           <Route path="/" exact component={Landing}/>
           <Route path="/login" exact component={Login}/>
+          <Route path="/register" exact component={Signup}/>
         </Switch>
         <footer>
           <Footer />

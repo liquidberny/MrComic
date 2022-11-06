@@ -1,5 +1,4 @@
 import axios from "axios"
-import { NavLink } from "react-router-dom";
 import { sessionService } from "redux-react-session";
 
 export const loginUser = (credentials, navigate, setFieldError, setSubmitting) => {
@@ -43,7 +42,7 @@ export const loginUser = (credentials, navigate, setFieldError, setSubmitting) =
 
 export const signupUser = (credentials, history, setFieldError, setSubmitting) => {
     return (dispatch) =>
-    axios.post("https://still-mesa-47558.herokuapp.com/user/signup",
+    axios.post("http://localhost:3001/user/signup",
     credentials,
     {
         headers: {
@@ -60,8 +59,6 @@ export const signupUser = (credentials, history, setFieldError, setSubmitting) =
                 setFieldError("name", message);
             } else if (message.includes("email")) {
                 setFieldError("email", message);
-            } else if (message.includes("date")) {
-                setFieldError("dateOfBirth", message);
             } else if (message.includes("password")) {
                 setFieldError("password", message);
             }
