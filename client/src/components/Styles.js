@@ -112,10 +112,6 @@ font-weight: bold;
 `;
 
 export const StyledFormArea = styled.div`
-background-color: ${props => props.bg ||
-colors.light1};
-text-align: left;
-padding: 45px 55px;
 `;
 
 export const StyledFormButton = styled.button`

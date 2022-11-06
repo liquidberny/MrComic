@@ -35,8 +35,7 @@ const OurNavar = () => {
                         <Nav.Link href="/">Home</Nav.Link>
                         <Nav.Link href="#action2">About Us</Nav.Link>
                         <NavDropdown title="Login/Register" id="navbarScrollingDropdown">
-                            <NavDropdown.Item href="#action3"></NavDropdown.Item>
-                            <NavDropdown.Item onClick={() => setLoginShow(true)}>
+                            <NavDropdown.Item href="login">
                                 Login
                             </NavDropdown.Item>
                             <NavDropdown.Divider />
