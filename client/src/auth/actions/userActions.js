@@ -1,7 +1,7 @@
 import axios from "axios"
 import { sessionService } from "redux-react-session";
 
-export const loginUser = (credentials, navigate, setFieldError, setSubmitting) => {
+export const loginUser = (credentials, navigate, setFieldError, setSubmitting, enqueueSnackbar) => {
     axios.post("http://localhost:3001/user/signin",
     credentials,
     {
@@ -22,11 +22,14 @@ export const loginUser = (credentials, navigate, setFieldError, setSubmitting) =
                 setFieldError("password", message);
             }
         } else if (data.status === "SUCCESS") {
-            const userData = data.data;
+            const userData = data.data[0];
             console.log("user data :", userData);
-            console.log(userData.accessToken);
-            const token = userData.accessToken;
+            console.log(userData.name);
+            const token = userData._id;
 
+            enqueueSnackbar(`Welcome ${userData.name}`, {
+                variant: 'success'
+              });
             sessionService.saveSession(token).then(() => {
                 sessionService.saveUser(userData).then(() => {
                     navigate.push("/")
@@ -41,7 +44,7 @@ export const loginUser = (credentials, navigate, setFieldError, setSubmitting) =
     }).catch(err => console.error(err))
 } 
 
-export const signupUser = (credentials, history, setFieldError, setSubmitting) => {
+export const signupUser = (credentials, history, setFieldError, setSubmitting, enqueueSnackbar) => {
     console.log("user actions")
     
     axios.post("http://localhost:3001/user/signup",
@@ -71,6 +74,9 @@ export const signupUser = (credentials, history, setFieldError, setSubmitting) =
         } else if (data.status === "SUCCESS") {
             //Login user after succesful signup
             // const {email, password} = credentials;
+            enqueueSnackbar('You were successfully registered', {
+                variant: 'success'
+              });
             history.push("/")
 
         }

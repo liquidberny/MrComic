@@ -23,9 +23,13 @@ import { loginUser } from '../../auth/actions/userActions';
 
 import { useHistory } from "react-router-dom";
 
+//snackbar
+import { useSnackbar } from 'notistack';
+
 const Signup = ({ loginUser }) => {
     const navigate = useHistory();
     const classes = useStyles();
+    const { enqueueSnackbar } = useSnackbar();
 
     return (
         <div className={classes.container}>
@@ -59,7 +63,7 @@ const Signup = ({ loginUser }) => {
                     onSubmit={(values, { setSubmitting, setFieldError }) => {
                         console.log(values);
                         signupUser(values, navigate,
-                            setFieldError, setSubmitting);
+                            setFieldError, setSubmitting, enqueueSnackbar);
                     }}>
                     {({ isSubmitting }) => (
                         <Form>
