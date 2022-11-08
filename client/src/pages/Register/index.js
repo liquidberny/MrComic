@@ -19,14 +19,13 @@ import { Rings } from "react-loader-spinner";
 
 //Auth&redux
 import { signupUser } from '../../auth/actions/userActions';
-import { loginUser } from '../../auth/actions/userActions';
 
 import { useHistory } from "react-router-dom";
 
 //snackbar
 import { useSnackbar } from 'notistack';
 
-const Signup = ({ loginUser }) => {
+const Signup = () => {
     const navigate = useHistory();
     const classes = useStyles();
     const { enqueueSnackbar } = useSnackbar();

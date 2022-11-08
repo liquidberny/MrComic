@@ -3,22 +3,21 @@ import { sessionService } from "redux-react-session";
 
 export const loginUser = (credentials, navigate, setFieldError, setSubmitting, enqueueSnackbar) => {
     axios.post("http://localhost:3001/user/signin",
-    credentials,
-    {
-        headers: {
-            "Content-Type": "application/json"
+        credentials,
+        {
+            headers: {
+                "Content-Type": "application/json"
+            }
         }
-    }
     ).then((response) => {
-        const {data} = response;
-    console.log(data, 'antes del if');
+        const { data } = response;
         if (data.status === 'FAILED') {
-            const {message} = data;
+            const { message } = data;
 
-            if (message.includes("credentials")){
+            if (message.includes("credentials")) {
                 setFieldError("email", message);
                 setFieldError("password", message);
-            } else if (message.includes("password")){
+            } else if (message.includes("password")) {
                 setFieldError("password", message);
             }
         } else if (data.status === "SUCCESS") {
@@ -29,11 +28,11 @@ export const loginUser = (credentials, navigate, setFieldError, setSubmitting, e
 
             enqueueSnackbar(`Welcome ${userData.name}`, {
                 variant: 'success'
-              });
+            });
             sessionService.saveSession(token).then(() => {
                 sessionService.saveUser(userData).then(() => {
                     navigate.push("/")
-                    
+
                 }).catch(err => console.error(err))
             }).catch(err => console.error(err))
         }
@@ -42,51 +41,50 @@ export const loginUser = (credentials, navigate, setFieldError, setSubmitting, e
         setSubmitting(false);
 
     }).catch(err => console.error(err))
-} 
+}
 
 export const signupUser = (credentials, history, setFieldError, setSubmitting, enqueueSnackbar) => {
     console.log("user actions")
-    
+
     axios.post("http://localhost:3001/user/signup",
-    credentials,
-    {
-        headers: {
-            "Content-Type": "application/json"
-        }
-    }).then((response) => {
-        const {data} = response;
-
-        if (data.status === "FAILED") {
-            const {message} = data;
-            
-            //Checking for specific error
-            if (message.includes("name")) {
-                setFieldError("name", message);
-            } else if (message.includes("email")) {
-                setFieldError("email", message);
-            } else if (message.includes("password")) {
-                setFieldError("password", message);
+        credentials,
+        {
+            headers: {
+                "Content-Type": "application/json"
             }
+        }).then((response) => {
+            const { data } = response;
 
-            //Complete submission
-            setSubmitting(false);
+            if (data.status === "FAILED") {
+                const { message } = data;
 
-        } else if (data.status === "SUCCESS") {
-            //Login user after succesful signup
-            // const {email, password} = credentials;
-            enqueueSnackbar('You were successfully registered', {
-                variant: 'success'
-              });
-            history.push("/")
+                //Checking for specific error
+                if (message.includes("name")) {
+                    setFieldError("name", message);
+                } else if (message.includes("email")) {
+                    setFieldError("email", message);
+                } else if (message.includes("password")) {
+                    setFieldError("password", message);
+                }
 
-        }
-    }).catch(err => console.error(err))
+                //Complete submission
+                setSubmitting(false);
+
+            } else if (data.status === "SUCCESS") {
+                //Login user after succesful signup
+                // const {email, password} = credentials;
+                enqueueSnackbar('You were successfully registered, now please log in.', {
+                    variant: 'success'
+                });
+                history.push("/")
+
+            }
+        }).catch(err => console.error(err))
 };
 
 export const logoutUser = (history) => {
-    return () => {
-        sessionService.deleteSession();
-        sessionService.deleteUser();
-        history.push('/');
-    }
+    sessionService.deleteSession();
+    sessionService.deleteUser();
+    history.push('/');
+
 };
