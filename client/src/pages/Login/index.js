@@ -25,9 +25,13 @@ import { connect } from 'react-redux';
 import { loginUser } from '../../auth/actions/userActions';
 import { useHistory } from "react-router-dom";
 
+//snackbar
+import { useSnackbar } from 'notistack';
+
 const Login = ({ loginUser }) => {
     const navigate = useHistory();
     const classes = useStyles();
+    const { enqueueSnackbar } = useSnackbar();
 
     return (
         <div className={classes.container}>
@@ -55,7 +59,7 @@ const Login = ({ loginUser }) => {
                     onSubmit={(values, { setSubmitting, setFieldError }) => {
                         console.log(values);
                         loginUser(values, navigate,
-                            setFieldError, setSubmitting);
+                            setFieldError, setSubmitting, enqueueSnackbar);
                     }}>
                     {({ isSubmitting }) => (
                         <Form>

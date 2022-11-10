@@ -19,13 +19,16 @@ import { Rings } from "react-loader-spinner";
 
 //Auth&redux
 import { signupUser } from '../../auth/actions/userActions';
-import { loginUser } from '../../auth/actions/userActions';
 
 import { useHistory } from "react-router-dom";
 
-const Signup = ({ loginUser }) => {
+//snackbar
+import { useSnackbar } from 'notistack';
+
+const Signup = () => {
     const navigate = useHistory();
     const classes = useStyles();
+    const { enqueueSnackbar } = useSnackbar();
 
     return (
         <div className={classes.container}>
@@ -59,7 +62,7 @@ const Signup = ({ loginUser }) => {
                     onSubmit={(values, { setSubmitting, setFieldError }) => {
                         console.log(values);
                         signupUser(values, navigate,
-                            setFieldError, setSubmitting);
+                            setFieldError, setSubmitting, enqueueSnackbar);
                     }}>
                     {({ isSubmitting }) => (
                         <Form>
