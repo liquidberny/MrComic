@@ -5,21 +5,15 @@ import {
     Nav,
     Navbar,
     NavDropdown,
-
 } from 'react-bootstrap';
 import { React } from 'react';
-import { connect } from "react-redux";
-import { logoutUser } from "../../auth/actions/userActions";
-import { useHistory } from "react-router-dom";
+const OurNavar = () => {
 
-const OurNavar = ({ user }) => {
-    const navigate = useHistory();
 
-    console.log(user.name);
     return (
         <Navbar bg="light" expand="lg">
-
-
+            
+            
             <Container fluid>
                 <Navbar.Brand href="#">Mr. Comics</Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll" />
@@ -29,9 +23,9 @@ const OurNavar = ({ user }) => {
                         style={{ maxHeight: '100px' }}
                         navbarScroll
                     >
-                        <Nav.Link href="/">Welcome {user.name}</Nav.Link>
-                        <Nav.Link href="/">About Us</Nav.Link>
-                        {user.name ? null : <NavDropdown title="Login/Register" id="navbarScrollingDropdown">
+                        <Nav.Link href="/">Home</Nav.Link>
+                        <Nav.Link href="#action2">About Us</Nav.Link>
+                        <NavDropdown title="Login/Register" id="navbarScrollingDropdown">
                             <NavDropdown.Item href="login">
                                 Login
                             </NavDropdown.Item>
@@ -39,8 +33,7 @@ const OurNavar = ({ user }) => {
                             <NavDropdown.Item href="register">
                                 Register
                             </NavDropdown.Item>
-                        </NavDropdown>}
-                        {user.name ? <Button variant="outline-dark" onClick={() => logoutUser(navigate)}>Log out</Button> : null}
+                        </NavDropdown>
                     </Nav>
                     <Form className="d-flex">
                         <Form.Control
@@ -56,12 +49,5 @@ const OurNavar = ({ user }) => {
         </Navbar>
     );
 }
-const mapStateToProps = ({ session }) => ({
-    user: session.user
-})
 
-
-
-export default connect(mapStateToProps, { logoutUser })(OurNavar);
-
-// export default OurNavar;
+export default OurNavar;

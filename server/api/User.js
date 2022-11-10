@@ -6,7 +6,7 @@ const User = require('./../models/User')
 const bcrypt = require('bcrypt');
 //sign up
 router.post('/signup', (req, res) => {
-    let { name, email, password, admin, test } = req.body;
+    let { name, email, password, test } = req.body;
     name = name.trim();
     email = email.trim();
     password = password.trim();
@@ -25,6 +25,7 @@ router.post('/signup', (req, res) => {
             status: "FAILED",
             message: "Invalid email entered"
         })
+        //MM-DD-YY
     } else {
         //Checking if user already exists
         User.find({ email }).then(result => {
@@ -44,7 +45,6 @@ router.post('/signup', (req, res) => {
                         name,
                         email,
                         password: hashedPassword,
-                        admin
                     });
 
                     newUser.save().then(result => {
