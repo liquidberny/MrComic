@@ -29,7 +29,7 @@ const OurNavar = ({ user }) => {
                         style={{ maxHeight: '100px' }}
                         navbarScroll
                     >
-                        <Nav.Link href="/">Bienvenido {user.name}</Nav.Link>
+                        <Nav.Link href="/">Welcome {user.name}</Nav.Link>
                         <Nav.Link href="/">About Us</Nav.Link>
                         {user.name ? null : <NavDropdown title="Login/Register" id="navbarScrollingDropdown">
                             <NavDropdown.Item href="login">
