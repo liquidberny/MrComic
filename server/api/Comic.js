@@ -4,7 +4,7 @@ const Comic = require('./../models/Comic')
 
 //create comic
 router.post('/create', (req, res) => {
-    let { name, editorial, genre, characters, year, description } = req.body;
+    let { name, editorial, genre, characters, year, description, aproved } = req.body;
     name = name.trim();
     editorial = editorial.trim();
     genre = genre.trim();
@@ -48,6 +48,7 @@ router.post('/create', (req, res) => {
                     characters,
                     year,
                     description,
+                    aproved
                 });
 
                 newComic.save().then(result => {
@@ -80,4 +81,15 @@ router.post('/create', (req, res) => {
 
 
 });
+
+//get comics
+router.get("/read", async (req, res) => {
+    Comic.find({}, (err, result) => {
+        if (err) {
+            res.send(err);
+        }
+        res.send(result);
+    })
+});
+
 module.exports = router ;

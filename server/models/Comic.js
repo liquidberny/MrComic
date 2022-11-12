@@ -8,6 +8,7 @@ const ComicSchema = new mongoose.Schema({
     characters: [String],
     year: Number,
     description: String,
+    approved: { type: Boolean, default: false},
     //add this with ofArrayOfNumbers: [[Number]], saving posts _id
     // posts recientes (foreign key: post) 
     // posts populares (foreign key: post) 

@@ -7,7 +7,7 @@ import {
     NavDropdown,
 
 } from 'react-bootstrap';
-import { React } from 'react';
+import { React, } from 'react';
 import { connect } from "react-redux";
 import { logoutUser } from "../../auth/actions/userActions";
 import { useHistory } from "react-router-dom";
@@ -15,7 +15,6 @@ import { useHistory } from "react-router-dom";
 const OurNavar = ({ user }) => {
     const navigate = useHistory();
 
-    console.log(user.name);
     return (
         <Navbar bg="light" expand="lg">
 
@@ -31,9 +30,11 @@ const OurNavar = ({ user }) => {
                     >
                         <Nav.Link href="/">Welcome {user.name}</Nav.Link>
                         <Nav.Link href="/">About Us</Nav.Link>
-                        {user.name ? null : <NavDropdown title="Login/Register" id="navbarScrollingDropdown">
+                        <Nav.Link href="/comic">Comic</Nav.Link>
+
+                        {user.name ? null : <NavDropdown title="Log in/Register" id="navbarScrollingDropdown">
                             <NavDropdown.Item href="login">
-                                Login
+                                Log in
                             </NavDropdown.Item>
                             <NavDropdown.Divider />
                             <NavDropdown.Item href="register">

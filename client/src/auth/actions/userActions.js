@@ -2,7 +2,9 @@ import axios from "axios"
 import { sessionService } from "redux-react-session";
 
 export const loginUser = (credentials, navigate, setFieldError, setSubmitting, enqueueSnackbar) => {
-    axios.post("http://localhost:3001/user/signin",
+    // console.log(`${process.env.REACT_APP_API_URL}/signin/`)
+    // `${process.env.REACT_APP_API_URL}/signin/`
+    axios.post(`${process.env.REACT_APP_API_URL}/signin/`,
         credentials,
         {
             headers: {
@@ -46,7 +48,7 @@ export const loginUser = (credentials, navigate, setFieldError, setSubmitting, e
 export const signupUser = (credentials, history, setFieldError, setSubmitting, enqueueSnackbar) => {
     console.log("user actions")
 
-    axios.post("http://localhost:3001/user/signup",
+    axios.post(`${process.env.REACT_APP_API_URL}/signup/`,
         credentials,
         {
             headers: {
