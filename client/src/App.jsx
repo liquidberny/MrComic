@@ -9,6 +9,7 @@ import Login from './pages/Login';
 import Signup from './pages/Register';
 import Comic from './pages/Comic';
 import ComicDetails from './pages/ComicDeatails';
+import CreateComic from './pages/CreateComic';
 import {
   BrowserRouter as Router,
   Switch,
@@ -29,11 +30,12 @@ function App() {
 
 
         <Switch>
-          <Route path="/" exact component={Landing}/>
-          <Route path="/login" exact component={Login}/>
-          <Route path="/register" exact component={Signup}/>
-          <Route path ="/comic" exact component={Comic}/>
-          <Route path = "/comic/:comicId" exact component={ComicDetails}/>
+          <Route path="/" exact component={Landing} />
+          <Route path="/login" exact component={Login} />
+          <Route path="/register" exact component={Signup} />
+          <Route path="/comic" exact component={Comic} />
+          <Route path="/comic/:comicId" exact component={ComicDetails} />
+          <Route path="/create" exact component={CreateComic} />
         </Switch>
         <footer>
           <Footer />
@@ -46,9 +48,9 @@ function App() {
 
   );
 }
-const mapStateToProps = ({session}) => ({
+const mapStateToProps = ({ session }) => ({
   checked: session.checked, authenticated: session.authenticated
-}) 
+})
 
 export default connect(mapStateToProps)(App);
 

@@ -5,6 +5,7 @@ const Comic = require('./../models/Comic')
 //create comic
 router.post('/create', (req, res) => {
     let { name, editorial, genre, characters, year, description, aproved } = req.body;
+    let imagen = req.files;
     name = name.trim();
     editorial = editorial.trim();
     genre = genre.trim();
@@ -50,6 +51,9 @@ router.post('/create', (req, res) => {
                     description,
                     aproved
                 });
+                newComic.img.data = imagen.data;
+                newComic.img.contentType = imagen.mimetype; 
+                newComic.img.name = imagen.name;
 
                 newComic.save().then(result => {
                     res.json({

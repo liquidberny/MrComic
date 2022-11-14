@@ -1,7 +1,6 @@
 import {
     Button,
     Container,
-    Form,
     Nav,
     Navbar,
     NavDropdown,
@@ -30,28 +29,29 @@ const OurNavar = ({ user }) => {
                     >
                         {user.name ? <Nav.Link>Welcome {user.name}</Nav.Link> : null}
                         <Nav.Link href="/">About Us</Nav.Link>
-                        <Nav.Link href="/comic">Comics</Nav.Link>
-
-                        {user.name ? null : <NavDropdown title="Log in/Register" id="navbarScrollingDropdown">
-                            <NavDropdown.Item href="login">
-                                Log in
+                        <NavDropdown title="Comics" id="navbarScrollingDropdown">
+                            <NavDropdown.Item href="comic">
+                                See posts
                             </NavDropdown.Item>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item href="register">
-                                Register
+                            <NavDropdown.Item href="create">
+                                Create Post
                             </NavDropdown.Item>
-                        </NavDropdown>}
+                        </NavDropdown>
+                        {user.name ? null :
+                            <NavDropdown title="Log in/Register" id="navbarScrollingDropdown">
+                                <NavDropdown.Item href="login">
+                                    Log in
+                                </NavDropdown.Item>
+                                <NavDropdown.Divider />
+                                <NavDropdown.Item href="register">
+                                    Register
+                                </NavDropdown.Item>
+                            </NavDropdown>
+                        }
                         {user.name ? <Button variant="outline-dark" onClick={() => logoutUser(navigate)}>Log out</Button> : null}
                     </Nav>
-                    <Form className="d-flex">
-                        <Form.Control
-                            type="search"
-                            placeholder="Search"
-                            className="me-2"
-                            aria-label="Search"
-                        />
-                        <Button variant="outline-success">Search</Button>
-                    </Form>
+                    
                 </Navbar.Collapse>
             </Container>
         </Navbar>
