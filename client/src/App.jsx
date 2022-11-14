@@ -8,6 +8,7 @@ import Landing from './pages/Landing';
 import Login from './pages/Login';
 import Signup from './pages/Register';
 import Comic from './pages/Comic';
+import ComicDetails from './pages/ComicDeatails';
 import {
   BrowserRouter as Router,
   Switch,
@@ -32,7 +33,7 @@ function App() {
           <Route path="/login" exact component={Login}/>
           <Route path="/register" exact component={Signup}/>
           <Route path ="/comic" exact component={Comic}/>
-
+          <Route path = "/comic/:comicId" exact component={ComicDetails}/>
         </Switch>
         <footer>
           <Footer />

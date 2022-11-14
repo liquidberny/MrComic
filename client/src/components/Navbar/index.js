@@ -20,7 +20,7 @@ const OurNavar = ({ user }) => {
 
 
             <Container fluid>
-                <Navbar.Brand href="#">Mr. Comics</Navbar.Brand>
+                <Navbar.Brand href="/">Mr. Comics</Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">
                     <Nav
@@ -28,9 +28,9 @@ const OurNavar = ({ user }) => {
                         style={{ maxHeight: '100px' }}
                         navbarScroll
                     >
-                        <Nav.Link href="/">Welcome {user.name}</Nav.Link>
+                        {user.name ? <Nav.Link>Welcome {user.name}</Nav.Link> : null}
                         <Nav.Link href="/">About Us</Nav.Link>
-                        <Nav.Link href="/comic">Comic</Nav.Link>
+                        <Nav.Link href="/comic">Comics</Nav.Link>
 
                         {user.name ? null : <NavDropdown title="Log in/Register" id="navbarScrollingDropdown">
                             <NavDropdown.Item href="login">
