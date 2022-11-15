@@ -30,21 +30,21 @@ const OurNavar = ({ user }) => {
                         {user.name ? <Nav.Link>Welcome {user.name}</Nav.Link> : null}
                         <Nav.Link href="/">About Us</Nav.Link>
                         <NavDropdown title="Comics" id="navbarScrollingDropdown">
-                            <NavDropdown.Item href="comic">
+                            <NavDropdown.Item href="/comic">
                                 See posts
                             </NavDropdown.Item>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item href="create">
+                            <NavDropdown.Item href="/create">
                                 Create Post
                             </NavDropdown.Item>
                         </NavDropdown>
                         {user.name ? null :
                             <NavDropdown title="Log in/Register" id="navbarScrollingDropdown">
-                                <NavDropdown.Item href="login">
+                                <NavDropdown.Item href="/login">
                                     Log in
                                 </NavDropdown.Item>
                                 <NavDropdown.Divider />
-                                <NavDropdown.Item href="register">
+                                <NavDropdown.Item href="/register">
                                     Register
                                 </NavDropdown.Item>
                             </NavDropdown>

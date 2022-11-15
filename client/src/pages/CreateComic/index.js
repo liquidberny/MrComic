@@ -7,23 +7,72 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
+import { useSnackbar } from 'notistack';
+import { sendComic } from '../../auth/actions/comicActions';
+import { useHistory } from "react-router-dom";
+
 const CreateComic = () => {
     // const classes = useStyles();
-    const [character, setCharacter] = useState("")
+    const [name, setName] = useState("");
+    const [editorial, setEditorial] = useState("Marvel");
+    const [genre, setGenre] = useState("Action");
+    const [character, setCharacter] = useState("");
     const [list, setList] = useState([]);
+    const [year, setYear] = useState(0);
+    const [description, setDescription] = useState("");
+    const { enqueueSnackbar } = useSnackbar();
+
+    const [image, setImage] = useState("");
+    const [imagen, setImagen] = useState("");
+
+    const navigate = useHistory();
+
     const addCharacter = () => {
         setList([...list, character])
         console.log(list)
+    }
+    const submmit = () => {
+        if (name === '' || list === [] || description === '' || year === 0 || image === '') {
+            enqueueSnackbar('You have empty fields', {
+                variant: 'error'
+            });
+        } else if (imagen.type === "image/jpeg" || imagen.type === "image/png") {
+            if (imagen.size >= 40000000000) {
+                enqueueSnackbar('Your image size is too big', {
+                    variant: 'error'
+                });
+            } else {
+                sendComic(
+                    {
+                        name,
+                        editorial,
+                        genre,
+                        list,
+                        year,
+                        description
+                    },
+                    navigate,
+                    enqueueSnackbar
+                )
+            }
+
+
+        }
+
     }
     return (
         <div>
             <br />
             <Form>
                 <h3> Create comic post </h3>
+
                 <Row className="g-2">
                     <Col md>
                         <FloatingLabel controlId="floatingInputGrid" label="Comic name">
-                            <Form.Control type="text" placeholder="Comic name" />
+                            <Form.Control type="text" placeholder="Comic name"
+                                onChange={e => {
+                                    setName(e.target.value)
+                                }} />
                         </FloatingLabel>
                     </Col>
 
@@ -31,8 +80,13 @@ const CreateComic = () => {
                         <FloatingLabel
                             controlId="floatingSelectGrid"
                             label="Editorial"
+                            onChange={e => {
+                                setEditorial(e.target.value)
+                            }}
                         >
-                            <Form.Select aria-label="Editorial">
+                            <Form.Select aria-label="Editorial"
+
+                            >
                                 <option value="Marvel">Marvel</option>
                                 <option value="DC">DC</option>
                                 <option value="Dark horse">Dark Horse</option>
@@ -45,7 +99,11 @@ const CreateComic = () => {
                             controlId="floatingSelectGrid"
                             label="Genre"
                         >
-                            <Form.Select aria-label="Genre">
+                            <Form.Select aria-label="Genre"
+                                onChange={e => {
+                                    setGenre(e.target.value)
+                                }}
+                            >
                                 <option value="Action">Action</option>
                                 <option value="Adventure">Adventure</option>
                                 <option value="Drama">Drama</option>
@@ -82,15 +140,36 @@ const CreateComic = () => {
                     </Col>
                     <Col md>
                         <FloatingLabel controlId="floatingInputGrid" label="Year of comic publication">
-                            <Form.Control type="number" placeholder="20XX" />
+                            <Form.Control type="number" placeholder="20XX"
+                                onChange={e => {
+                                    setYear(e.target.value)
+                                }} />
                         </FloatingLabel>
 
                     </Col>
                     <Col md>
                         <FloatingLabel controlId="floatingInputGrid" label="Comic Description">
-                            <Form.Control type="text" placeholder="Comic description" />
+                            <Form.Control type="text" placeholder="Comic description"
+                                onChange={e => {
+                                    setDescription(e.target.value)
+                                }} />
                         </FloatingLabel>
                     </Col>
+                    <Row className="g-2">
+                        <Form.Group controlId="formFile" className="mb-3">
+                            <Form.Label>Upload an image</Form.Label>
+                            <Form.Control type="file"
+                                onChange={(event) => {
+                                    setImage(event.target.value);
+                                    setImagen(event.target.files[0]);
+                                }} />
+                        </Form.Group>
+                        <Button variant="outline-secondary"
+                            onClick={() => submmit()}
+                        >
+                            Create comic post
+                        </Button>
+                    </Row>
                 </Row>
             </Form>
             <br />
