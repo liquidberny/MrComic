@@ -10,13 +10,19 @@ app.use(cors());
 
 const UserRouter = require('./api/User');
 const ComicRouter = require('./api/Comic')
-//For accepting post ffrom data
+//For accepting post from data
 const bodyParser = require('express').json;
-app.use(bodyParser());
+app.use(bodyParser({
+    limits: { fileSize: 3 * 1024 * 1024 }
+}));
+
+//this is for images or files in general
+const fileUpload = require('express-fileupload');
+app.use(fileUpload());
 
 app.use('/user', UserRouter)
 app.use('/comic', ComicRouter)
-app.listen(port, () =>{
+app.listen(port, () => {
     console.log(`server running on port ${port}`)
 })
 
