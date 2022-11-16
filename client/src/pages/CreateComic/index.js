@@ -1,5 +1,5 @@
-import { makeStyles } from '@material-ui/styles';
-import theme from '../../styles/';
+// import { makeStyles } from '@material-ui/styles';
+// import theme from '../../styles/';
 import { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
@@ -8,8 +8,9 @@ import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { useSnackbar } from 'notistack';
-import { sendComic } from '../../auth/actions/comicActions';
+// import { sendComic } from '../../auth/actions/comicActions';
 import { useHistory } from "react-router-dom";
+import Axios from 'axios';
 
 const CreateComic = () => {
     // const classes = useStyles();
@@ -26,11 +27,35 @@ const CreateComic = () => {
     const [imagen, setImagen] = useState("");
 
     const navigate = useHistory();
+    // const action = `${process.env.REACT_APP_API_URL}/comic/create/`;
 
     const addCharacter = () => {
         setList([...list, character])
         console.log(list)
     }
+    // const validation = () => {
+    //     if (name === '' || list === [] || description === '' || year === 0 || image === '') {
+    //         enqueueSnackbar('You have empty fields', {
+    //             variant: 'error'
+    //         });
+    //     } else if (imagen.type === "image/jpeg" || imagen.type === "image/png") {
+    //         if (imagen.size >= 40000000000) {
+    //             enqueueSnackbar('Your image size is too big', {
+    //                 variant: 'error'
+    //             });
+    //         } else {
+    //             enqueueSnackbar('You have createated a comic succesfully', {
+    //                 variant: 'success'
+    //             });
+    //             document.insert.submit();
+    //             navigate.push("/");
+
+
+    //         }
+
+
+    //     }
+    // }
     const submmit = () => {
         if (name === '' || list === [] || description === '' || year === 0 || image === '') {
             enqueueSnackbar('You have empty fields', {
@@ -42,28 +67,59 @@ const CreateComic = () => {
                     variant: 'error'
                 });
             } else {
-                sendComic(
-                    {
-                        name,
-                        editorial,
-                        genre,
-                        list,
-                        year,
-                        description
-                    },
-                    navigate,
-                    enqueueSnackbar
-                )
+                const formData = new FormData();
+                formData.append("name", name)
+                formData.append("editorial", editorial)
+                formData.append("genre", genre)
+                formData.append("characters", list)
+                formData.append("year", year)
+                formData.append("description", description)
+                formData.append("image", imagen)
+
+                Axios({
+                    method: "post",
+                    url: `${process.env.REACT_APP_API_URL}/comic/create/`,
+                    data: formData,
+                    headers: { "Content-Type": "multipart/form-data" },
+                }).then(function (response) {
+                    console.log(response);
+                    navigate.push("/");
+                    enqueueSnackbar('Your comic post is created', {
+                        variant: 'success'
+                    }).then((result) => {
+                        console.log(result);
+                    })
+                }).catch(function (response) {
+                    console.log(response)
+                    // enqueueSnackbar('Error creating comic post', {
+                    //     variant: 'error'
+                    // });
+                });
+                // sendComic(
+                //     {
+                //         name,
+                //         editorial,
+                //         genre,
+                //         list,
+                //         year,
+                //         description,
+                //         imagen,
+                //     },
+                //     navigate,
+                //     enqueueSnackbar
+                // )
             }
-
-
+        } else {
+            enqueueSnackbar('Image format not permited', {
+                variant: 'error'
+            });
         }
 
     }
     return (
         <div>
             <br />
-            <Form>
+            <form>
                 <h3> Create comic post </h3>
 
                 <Row className="g-2">
@@ -166,25 +222,15 @@ const CreateComic = () => {
                         </Form.Group>
                         <Button variant="outline-secondary"
                             onClick={() => submmit()}
+                        // type="submit"
                         >
                             Create comic post
                         </Button>
                     </Row>
                 </Row>
-            </Form>
+            </form>
             <br />
         </div>
     )
 }
-const useStyles = makeStyles({
-    container: {
-        ...theme.globals.containerYFlexstart,
-        paddingTop: '20px',
-        paddingBottom: "20px",
-
-        [theme.breakpoints.down('sm')]: {
-            padding: '20px 30px',
-        },
-    }
-});
 export default CreateComic;

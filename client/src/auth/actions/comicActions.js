@@ -28,7 +28,9 @@ export const sendComic = (comic, history, enqueueSnackbar) => {
             console.log("data:" ,data);
             if (data.status === "FAILED") {
                 const { message } = data;
-
+                enqueueSnackbar(message, {
+                    variant: 'error'
+                });
                 //Checking for specific error
                 if (message.includes("name")) {
                     enqueueSnackbar('You have an error in comic name', {

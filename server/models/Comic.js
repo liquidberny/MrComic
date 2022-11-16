@@ -12,7 +12,7 @@ const ComicSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    img: {
+    image: {
         data: Buffer,
         contentType: String,
         name: String,
