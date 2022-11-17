@@ -20,6 +20,9 @@ const Comic = ({ user }) => {
     const [comics, setComics] = useState([]);
     const { enqueueSnackbar } = useSnackbar();
 
+
+
+
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_API_URL}/comic/read`
         ).then((response) => {
@@ -35,8 +38,11 @@ const Comic = ({ user }) => {
         //   .catch(error => {
         //     console.log(error)
         //   });
-    })
+    }, [enqueueSnackbar])
+
+
     return (
+
         <div className={classes.container}>
 
             {user.admin ? <h3>Unapproved posts</h3> : null}
@@ -51,7 +57,10 @@ const Comic = ({ user }) => {
                                 <Col>
                                     <Card>
                                         <Link to={"/comic/" + val._id} style={{ color: 'inherit', textDecoration: 'none' }}>
-                                            <Card.Img variant="top" src={`${process.env.REACT_APP_API_URL}/comic/image/${val._id}`} />
+                                            <Card.Img variant="top"
+                                                src={`${process.env.REACT_APP_API_URL}/comic/image/${val._id}`}
+
+                                            />
                                             <Card.Body>
                                                 <Card.Title>{val.name}</Card.Title>
                                                 <Card.Text>

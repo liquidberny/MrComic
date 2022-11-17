@@ -63,7 +63,7 @@ const CreateComic = ({ user }) => {
                 variant: 'error'
             });
         } else if (imagen.type === "image/jpeg" || imagen.type === "image/png") {
-            if (imagen.size >= 40000000000) {
+            if (imagen.size >= 400000) {
                 enqueueSnackbar('Your image size is too big', {
                     variant: 'error'
                 });

@@ -1,21 +1,65 @@
 //styles
 import { makeStyles } from '@material-ui/styles';
 import theme from '../../styles';
-import Form from 'react-bootstrap/Form';
-
+import { useParams } from "react-router";
+import { useEffect, useState } from "react";
+import { getComicbyId } from '../../auth/actions/comicActions';
+import axios from 'axios';
+import { useSnackbar } from 'notistack';
 const ComicDetails = () => {
+    const { comicId } = useParams();
+    const [comic, setComic] = useState([]);
+    const { enqueueSnackbar } = useSnackbar();
+
     const classes = useStyles();
-    const action = `${process.env.REACT_APP_API_URL}/comic/upload/`;
-    const name = "name";
+    // useEffect(() => {
+
+    //     setComic(getComicbyId(comicId))
+
+    // }, [comicId]);
+    useEffect(() => {
+
+        axios.get(`${process.env.REACT_APP_API_URL}/comic/read/${comicId}`
+        ).then((response) => {
+            setComic(response.data)
+        }).catch((err) => {
+            enqueueSnackbar(`Error loading comics`, {
+                variant: 'error'
+            });
+        });
+
+    }, [enqueueSnackbar])
+
     return (
         <div className={classes.container} >
-            <form method="POST" action={action} enctype="multipart/form-data">
-                
-                <input type="file" name="myFile" />
-                <input type="file" name="myPicture" />
-                <input type="file" name="myVideo" />
-                <input type="submit" />
-            </form>
+            <img
+                src={`${process.env.REACT_APP_API_URL}/comic/image/${comic._id}`}
+                alt={"imagen de comic"}
+            />
+            <div >
+                <p >
+                    <strong>Title:</strong> {comic.name}
+                </p>
+                <p>
+                    <strong>Editorial:</strong>{" "}
+                    {comic.editorial}
+                </p>
+                <p>
+                    <strong>Genres:</strong>{" "}
+                    {comic.genre}
+                </p>
+                <p>
+                    <strong>Year:</strong>{" "}
+                    {comic.year}
+                </p>
+                <p>
+                    <strong>Characters:</strong>{" "}
+                    {comic.characters}
+                </p>
+                <p>
+                    <strong>Description:</strong> {comic.description}
+                </p>
+            </div>
         </div >
     )
 
