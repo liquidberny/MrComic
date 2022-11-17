@@ -11,8 +11,9 @@ import { useSnackbar } from 'notistack';
 // import { sendComic } from '../../auth/actions/comicActions';
 import { useHistory } from "react-router-dom";
 import Axios from 'axios';
+import { connect } from "react-redux";
 
-const CreateComic = () => {
+const CreateComic = ({ user }) => {
     // const classes = useStyles();
     const [name, setName] = useState("");
     const [editorial, setEditorial] = useState("Marvel");
@@ -119,118 +120,127 @@ const CreateComic = () => {
     return (
         <div>
             <br />
-            <form>
-                <h3> Create comic post </h3>
+            {user.name ?
+                <form>
+                    <h3> Create comic post </h3>
 
-                <Row className="g-2">
-                    <Col md>
-                        <FloatingLabel controlId="floatingInputGrid" label="Comic name">
-                            <Form.Control type="text" placeholder="Comic name"
+                    <Row className="g-2">
+                        <Col md>
+                            <FloatingLabel controlId="floatingInputGrid" label="Comic name">
+                                <Form.Control type="text" placeholder="Comic name"
+                                    onChange={e => {
+                                        setName(e.target.value)
+                                    }} />
+                            </FloatingLabel>
+                        </Col>
+
+                        <Col md>
+                            <FloatingLabel
+                                controlId="floatingSelectGrid"
+                                label="Editorial"
                                 onChange={e => {
-                                    setName(e.target.value)
-                                }} />
-                        </FloatingLabel>
-                    </Col>
-
-                    <Col md>
-                        <FloatingLabel
-                            controlId="floatingSelectGrid"
-                            label="Editorial"
-                            onChange={e => {
-                                setEditorial(e.target.value)
-                            }}
-                        >
-                            <Form.Select aria-label="Editorial"
-
-                            >
-                                <option value="Marvel">Marvel</option>
-                                <option value="DC">DC</option>
-                                <option value="Dark horse">Dark Horse</option>
-                                <option value="Image">Image Comics</option>
-                            </Form.Select>
-                        </FloatingLabel>
-                    </Col>
-                    <Col md>
-                        <FloatingLabel
-                            controlId="floatingSelectGrid"
-                            label="Genre"
-                        >
-                            <Form.Select aria-label="Genre"
-                                onChange={e => {
-                                    setGenre(e.target.value)
+                                    setEditorial(e.target.value)
                                 }}
                             >
-                                <option value="Action">Action</option>
-                                <option value="Adventure">Adventure</option>
-                                <option value="Drama">Drama</option>
-                                <option value="Horror">Horror</option>
-                            </Form.Select>
-                        </FloatingLabel>
-                    </Col>
-                </Row>
-                <br />
-                <Row className="g-2">
-                    <Col md>
-                        <InputGroup className="mb-3">
-                            <Form.Control
-                                placeholder="Characters"
-                                aria-label="Add comic character appearance"
-                                aria-describedby="basic-addon2"
-                                onChange={e => setCharacter(e.target.value)}
-                            />
-                            <Button variant="outline-secondary" id="button-addon2"
-                                onClick={() => addCharacter()}
-                            >
-                                Add Character
-                            </Button>
-                        </InputGroup>
-                        <Form.Text muted>
-                            {list.map(char => {
-                                return (
-                                    <li>
-                                        {char}
-                                    </li>
-                                )
-                            })}
-                        </Form.Text>
-                    </Col>
-                    <Col md>
-                        <FloatingLabel controlId="floatingInputGrid" label="Year of comic publication">
-                            <Form.Control type="number" placeholder="20XX"
-                                onChange={e => {
-                                    setYear(e.target.value)
-                                }} />
-                        </FloatingLabel>
+                                <Form.Select aria-label="Editorial"
 
-                    </Col>
-                    <Col md>
-                        <FloatingLabel controlId="floatingInputGrid" label="Comic Description">
-                            <Form.Control type="text" placeholder="Comic description"
-                                onChange={e => {
-                                    setDescription(e.target.value)
-                                }} />
-                        </FloatingLabel>
-                    </Col>
-                    <Row className="g-2">
-                        <Form.Group controlId="formFile" className="mb-3">
-                            <Form.Label>Upload an image</Form.Label>
-                            <Form.Control type="file"
-                                onChange={(event) => {
-                                    setImage(event.target.value);
-                                    setImagen(event.target.files[0]);
-                                }} />
-                        </Form.Group>
-                        <Button variant="outline-secondary"
-                            onClick={() => submmit()}
-                        // type="submit"
-                        >
-                            Create comic post
-                        </Button>
+                                >
+                                    <option value="Marvel">Marvel</option>
+                                    <option value="DC">DC</option>
+                                    <option value="Dark horse">Dark Horse</option>
+                                    <option value="Image">Image Comics</option>
+                                </Form.Select>
+                            </FloatingLabel>
+                        </Col>
+                        <Col md>
+                            <FloatingLabel
+                                controlId="floatingSelectGrid"
+                                label="Genre"
+                            >
+                                <Form.Select aria-label="Genre"
+                                    onChange={e => {
+                                        setGenre(e.target.value)
+                                    }}
+                                >
+                                    <option value="Action">Action</option>
+                                    <option value="Adventure">Adventure</option>
+                                    <option value="Drama">Drama</option>
+                                    <option value="Horror">Horror</option>
+                                </Form.Select>
+                            </FloatingLabel>
+                        </Col>
                     </Row>
-                </Row>
-            </form>
+                    <br />
+                    <Row className="g-2">
+                        <Col md>
+                            <InputGroup className="mb-3">
+                                <Form.Control
+                                    placeholder="Characters"
+                                    aria-label="Add comic character appearance"
+                                    aria-describedby="basic-addon2"
+                                    onChange={e => setCharacter(e.target.value)}
+                                />
+                                <Button variant="outline-secondary" id="button-addon2"
+                                    onClick={() => addCharacter()}
+                                >
+                                    Add Character
+                                </Button>
+                            </InputGroup>
+                            <Form.Text muted>
+                                {list.map(char => {
+                                    return (
+                                        <li>
+                                            {char}
+                                        </li>
+                                    )
+                                })}
+                            </Form.Text>
+                        </Col>
+                        <Col md>
+                            <FloatingLabel controlId="floatingInputGrid" label="Year of comic publication">
+                                <Form.Control type="number" placeholder="20XX"
+                                    onChange={e => {
+                                        setYear(e.target.value)
+                                    }} />
+                            </FloatingLabel>
+
+                        </Col>
+                        <Col md>
+                            <FloatingLabel controlId="floatingInputGrid" label="Comic Description">
+                                <Form.Control type="text" placeholder="Comic description"
+                                    onChange={e => {
+                                        setDescription(e.target.value)
+                                    }} />
+                            </FloatingLabel>
+                        </Col>
+                        <Row className="g-2">
+                            <Form.Group controlId="formFile" className="mb-3">
+                                <Form.Label>Upload an image</Form.Label>
+                                <Form.Control type="file"
+                                    onChange={(event) => {
+                                        setImage(event.target.value);
+                                        setImagen(event.target.files[0]);
+                                    }} />
+                            </Form.Group>
+                            <Button variant="outline-secondary"
+                                onClick={() => submmit()}
+                            // type="submit"
+                            >
+                                Create comic post
+                            </Button>
+                        </Row>
+                    </Row>
+                </form>
+                : <h3>You need to log in</h3>}
+
             <br />
         </div>
     )
 }
-export default CreateComic;
+const mapStateToProps = ({ session }) => ({
+    user: session.user
+})
+
+export default connect(mapStateToProps)(CreateComic);
+
+// export default CreateComic;
