@@ -44,7 +44,7 @@ const Comic = () => {
                         <Col>
                             <Card>
                                 <Link to= {"/comic/" + val._id} style={{  color: 'inherit', textDecoration: 'none' }}>
-                                    <Card.Img variant="top" src="holder.js/100px160" />
+                                    <Card.Img variant="top" src={`${process.env.REACT_APP_API_URL}/comic/image/${val._id}`} />
                                     <Card.Body>
                                         <Card.Title>{val.name}</Card.Title>
                                         <Card.Text>
