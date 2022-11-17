@@ -2,12 +2,18 @@ const express = require('express');
 const router = express.Router();
 const Comic = require('./../models/Comic')
 
-router.post("/upload", (req, res) => {
-    console.log(req.req.body.name)
-    console.log(req.files.myFile);
-    console.log(req.files.myPicture);
-    console.log(req.files.myVideo);
-});
+//Read comic
+router.get("/read/:id", async (req, res) => {
+
+    let id = req.params.id;
+    await Comic.findById(id).exec ((err, result) => {
+         if (err) { 
+             res.send(err);
+         }
+         res.send(result);
+         console.log(result);
+     })
+}); 
 
 //Show Image of post
 router.get('/image/:id', (req, res) => {
@@ -17,12 +23,15 @@ router.get('/image/:id', (req, res) => {
         if (err) {
             res.send(err);
         }
-
-        res.set('Content-Type', result.image.contentType);
-        res.send(result.image.data);
-
+        try {
+            res.set('Content-Type', result.image.contentType);
+            res.send(result.image.data);
+        } catch {
+            (err) => {
+                console.log(err)
+            }
+        }
     })
-
 });
 //create comic
 router.post('/create', async (req, res) => {
@@ -117,7 +126,7 @@ router.post('/create', async (req, res) => {
         Comic.find({ name }).then(result => {
 
 
-            
+
         })
 
         try {

@@ -14,6 +14,20 @@ export const getComics = async () => {
     });
 }
 
+export const getComicbyId = async (id) =>{
+    await axios.get(`${process.env.REACT_APP_API_URL}/comic/read/${id}`
+    ).then((response) => {
+        console.log(response.data)
+        const data = response.data;
+        return data;
+    }).catch((err) => {
+        // enqueueSnackbar(`Error loading comics`, {
+        //     variant: 'error'
+        // });
+        console.log(err)
+    });
+}
+ 
 export const sendComic = (comic, history, enqueueSnackbar) => {
     console.log("from sendComic: ",comic)
 

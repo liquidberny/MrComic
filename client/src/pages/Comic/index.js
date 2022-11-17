@@ -13,11 +13,15 @@ import { useEffect, useState } from 'react';
 import { useSnackbar } from 'notistack';
 import axios from "axios"
 import { Link } from 'react-router-dom';
+import { connect } from "react-redux";
 
-const Comic = () => {
+const Comic = ({ user }) => {
     const classes = useStyles();
     const [comics, setComics] = useState([]);
     const { enqueueSnackbar } = useSnackbar();
+
+
+
 
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_API_URL}/comic/read`
@@ -34,29 +38,79 @@ const Comic = () => {
         //   .catch(error => {
         //     console.log(error)
         //   });
-    })
+    }, [enqueueSnackbar])
+
+
     return (
+
         <div className={classes.container}>
+
+            {user.admin ? <h3>Unapproved posts</h3> : null}
+            {user.admin ?
+
+                <Row xs={1} md={2} className="g-4">
+
+                    {comics.map((val, key) => {
+                        if (!comics.approved) {
+
+                            return (
+                                <Col>
+                                    <Card>
+                                        <Link to={"/comic/" + val._id} style={{ color: 'inherit', textDecoration: 'none' }}>
+                                            <Card.Img variant="top"
+                                                src={`${process.env.REACT_APP_API_URL}/comic/image/${val._id}`}
+
+                                            />
+                                            <Card.Body>
+                                                <Card.Title>{val.name}</Card.Title>
+                                                <Card.Text>
+                                                    {val.description}
+                                                </Card.Text>
+                                            </Card.Body>
+                                        </Link>
+                                    </Card>
+                                </Col>
+                            )
+                        } else {
+                            return (
+                                console.log("comics no aprovados")
+                            )
+                        }
+                    })}
+                </Row>
+
+                : null}
+
+            <br />
+            <h3>Posts</h3>
 
             <Row xs={1} md={2} className="g-4">
                 {comics.map((val, key) => {
-                    return (
-                        <Col>
-                            <Card>
-                                <Link to= {"/comic/" + val._id} style={{  color: 'inherit', textDecoration: 'none' }}>
-                                    <Card.Img variant="top" src="holder.js/100px160" />
-                                    <Card.Body>
-                                        <Card.Title>{val.name}</Card.Title>
-                                        <Card.Text>
-                                            {val.description}
-                                        </Card.Text>
-                                    </Card.Body>
-                                </Link>
-                            </Card>
-                        </Col>
-                    )
+                    if (comics.approved) {
+
+                        return (
+                            <Col>
+                                <Card>
+                                    <Link to={"/comic/" + val._id} style={{ color: 'inherit', textDecoration: 'none' }}>
+                                        <Card.Img variant="top" src={`${process.env.REACT_APP_API_URL}/comic/image/${val._id}`} />
+                                        <Card.Body>
+                                            <Card.Title>{val.name}</Card.Title>
+                                            <Card.Text>
+                                                {val.description}
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Link>
+                                </Card>
+                            </Col>
+                        )
+                    } else {
+                        return (
+                            console.log("comics aprovados")
+                        )
+                    }
                 })}
             </Row>
+            <br />
         </div>
     );
 }
@@ -72,4 +126,9 @@ const useStyles = makeStyles({
         },
     }
 });
-export default Comic;
+const mapStateToProps = ({ session }) => ({
+    user: session.user
+})
+
+export default connect(mapStateToProps)(Comic);
+// export default Comic;
