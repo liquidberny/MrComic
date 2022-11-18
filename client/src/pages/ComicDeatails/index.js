@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/styles';
 import theme from '../../styles';
 import { useParams } from "react-router";
 import { useEffect, useState } from "react";
-import { getComicbyId } from '../../auth/actions/comicActions';
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
 const ComicDetails = () => {
@@ -28,8 +27,13 @@ const ComicDetails = () => {
             });
         });
 
-    }, [enqueueSnackbar])
-
+    }, [enqueueSnackbar, comicId])
+    const approve = () => {
+        axios.put(`${process.env.REACT_APP_API_URL}/comic/approve/`, {
+            id: comic._id
+        })
+        window.location.reload();
+    }
     return (
         <div className={classes.container} >
             <img
@@ -59,6 +63,12 @@ const ComicDetails = () => {
                 <p>
                     <strong>Description:</strong> {comic.description}
                 </p>
+                {comic.approved ? null : <button
+                    onClick={() => approve()}
+                >
+                    Approve
+                </button>}
+
             </div>
         </div >
     )
