@@ -51,7 +51,7 @@ const Comic = ({ user }) => {
                 <Row xs={1} md={2} className="g-4">
 
                     {comics.map((val, key) => {
-                        if (!comics.approved) {
+                        if (!val.approved) {
 
                             return (
                                 <Col>
@@ -86,7 +86,7 @@ const Comic = ({ user }) => {
 
             <Row xs={1} md={2} className="g-4">
                 {comics.map((val, key) => {
-                    if (comics.approved) {
+                    if (val.approved) {
 
                         return (
                             <Col>

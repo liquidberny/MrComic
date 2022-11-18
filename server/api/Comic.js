@@ -2,18 +2,32 @@ const express = require('express');
 const router = express.Router();
 const Comic = require('./../models/Comic')
 
+//update status user
+router.put("/approve", async (req, res) => {
+    const id = req.body.id;
+
+    try {
+        await Comic.findById(id, (err, updatedComic) => {
+            updatedComic.approved = true;
+            updatedComic.save();
+            res.send("approved");
+        });
+    } catch (err) {
+        console.log(err);
+    }
+});
 //Read comic
 router.get("/read/:id", async (req, res) => {
 
     let id = req.params.id;
-    await Comic.findById(id).exec ((err, result) => {
-         if (err) { 
-             res.send(err);
-         }
-         res.send(result);
-         console.log(result);
-     })
-}); 
+    await Comic.findById(id).exec((err, result) => {
+        if (err) {
+            res.send(err);
+        }
+        res.send(result);
+        console.log(result);
+    })
+});
 
 //Show Image of post
 router.get('/image/:id', (req, res) => {
