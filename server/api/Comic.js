@@ -2,6 +2,32 @@ const express = require('express');
 const router = express.Router();
 const Comic = require('./../models/Comic')
 
+//update comi
+router.put("/updateComic", async (req, res) => {
+    const id = req.body.id;
+    const name = req.body.name;
+    const year = req.body.year;
+    const description = req.body.description;
+
+    try {
+        await Comic.findById(id, (err, updatedComic) => {
+            updatedComic.name = name;
+            updatedComic.year = year;
+            updatedComic.description = description;
+            updatedComic.save();
+            res.send("updated");
+        });
+    } catch (err) {
+        console.log(err);
+    }
+});
+//delete comic
+router.delete("/delete/:id", async (req, res) => {
+    const id = req.params.id;
+
+    await Comic.findByIdAndRemove(id).exec();
+    res.send("deleted");
+});
 //update status user
 router.put("/approve", async (req, res) => {
     const id = req.body.id;
