@@ -5,6 +5,8 @@ import {
     colors,
     ButtonGroup,
 } from "../../components/Styles";
+import '../../styles/register.css'
+
 //Formik
 import { Formik, Form } from "formik";
 import { TextInput } from "../../components/FormLib";
@@ -68,6 +70,7 @@ const Signup = () => {
                         <Form>
 
                             <TextInput
+                                className='inputname'
                                 name="name"
                                 type="text"
                                 label="User Name"
@@ -76,6 +79,7 @@ const Signup = () => {
                             />
 
                             <TextInput
+                                className='inputmail'
                                 name="email"
                                 type="text"
                                 label="Email Address"
@@ -84,6 +88,7 @@ const Signup = () => {
                             />
 
                             <TextInput
+                                className='inputpass'
                                 name="password"
                                 type="password"
                                 label="Password"
@@ -91,6 +96,7 @@ const Signup = () => {
                                 icon={<FiLock />}
                             />
                             <TextInput
+                                className='inputpass2'
                                 name="repeatPassword"
                                 type="password"
                                 label="Repeat Password"
@@ -100,6 +106,7 @@ const Signup = () => {
                             <ButtonGroup>
                                 {!isSubmitting &&
                                     <StyledFormButton
+                                        className='registerbutton'
                                         type="submit">
                                         Sign Un
                                     </StyledFormButton>}

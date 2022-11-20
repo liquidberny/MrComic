@@ -8,6 +8,7 @@ import {
 //styles
 import { makeStyles } from '@material-ui/styles';
 import theme from '../../styles';
+import '../../styles/login.css'
 //Formik
 import { Formik, Form } from 'formik';
 import { TextInput } from '../../components/FormLib';
@@ -20,7 +21,6 @@ import { FiMail, FiLock } from 'react-icons/fi'
 import { Rings } from 'react-loader-spinner'
 
 //Auth & redux
-
 import { connect } from 'react-redux';
 import { loginUser } from '../../auth/actions/userActions';
 import { useHistory } from "react-router-dom";
@@ -36,7 +36,7 @@ const Login = ({ loginUser }) => {
     return (
         <div className={classes.container}>
             <StyledFormArea>
-                
+
                 <StyledTitle
                     color={colors.dark1}
                     size={30}>
@@ -64,14 +64,16 @@ const Login = ({ loginUser }) => {
                     {({ isSubmitting }) => (
                         <Form>
                             <TextInput
+                                className='inputmail'
                                 name="email"
                                 type="text"
                                 label="Email Address"
-                                placeholder="email@somethin.com"
+                                placeholder="email@something.com"
                                 icon={<FiMail />}
                             />
 
                             <TextInput
+                                className='inputpass'
                                 name="password"
                                 type="password"
                                 label="Password"
@@ -82,6 +84,7 @@ const Login = ({ loginUser }) => {
                             <ButtonGroup>
                                 {!isSubmitting &&
                                     <StyledFormButton
+                                        className='loginbutton'
                                         type="submit">
                                         Login
                                     </StyledFormButton>}
@@ -119,8 +122,8 @@ const useStyles = makeStyles({
         },
     }
 });
-const mapStateToProps = ({session}) => ({
+const mapStateToProps = ({ session }) => ({
     checked: session.checked
-}) 
+})
 
-export default connect(mapStateToProps, {loginUser})(Login);
+export default connect(mapStateToProps, { loginUser })(Login);
