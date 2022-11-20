@@ -32,15 +32,10 @@ const Comic = ({ user }) => {
                 variant: 'error'
             });
         });
-        // getComics().then(res => {
-        //     console.log(res)
-        //   })
-        //   .catch(error => {
-        //     console.log(error)
-        //   });
+
     }, [enqueueSnackbar])
 
-
+console.log(comics)
     return (
 
         <div className={classes.container}>

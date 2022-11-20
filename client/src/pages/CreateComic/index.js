@@ -149,6 +149,7 @@ const CreateComic = ({ user }) => {
                                     <option value="DC">DC</option>
                                     <option value="Dark horse">Dark Horse</option>
                                     <option value="Image">Image Comics</option>
+                                    <option value="Other">Other</option>
                                 </Form.Select>
                             </FloatingLabel>
                         </Col>

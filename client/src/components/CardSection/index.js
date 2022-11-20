@@ -3,30 +3,50 @@ import {
     Col,
     Row,
 } from 'react-bootstrap';
+import { useEffect, useState } from 'react';
+import { useSnackbar } from 'notistack';
+import axios from "axios"
+
 const CardSection = () => {
+
+    const [comics, setComics] = useState([]);
+    const { enqueueSnackbar } = useSnackbar();
+
+    useEffect(() => {
+        axios.get(`${process.env.REACT_APP_API_URL}/comic/readLatest`
+        ).then((response) => {
+            setComics(response.data)
+        }).catch((err) => {
+            // enqueueSnackbar(`Error loading comics`, {
+            //     variant: 'error'
+            // });
+        });
+
+    }, [enqueueSnackbar])
     return (
-        <Row xs={1} md={2} className="g-4">
-            {Array.from({ length: 4 }).map((_, idx) => (
-                <Col>
-                    <Card>
-                        <Card.Img 
-                        variant="top" 
-                        src="https://via.placeholder.com/473x160.png" 
-                        width="473" 
-                        height="160"
-                        />
-                        <Card.Body>
-                            <Card.Title>Card title</Card.Title>
-                            <Card.Text>
-                                This is a longer card with supporting text below as a natural
-                                lead-in to additional content. This content is a little bit
-                                longer.
-                            </Card.Text>
-                        </Card.Body>
-                    </Card>
-                </Col>
-            ))}
-        </Row>
+        <>
+            <h3>Recent Comics</h3>
+            <Row xs={1} md={2} className="g-4">
+                {comics.map((val) => (
+                    <Col>
+                        <Card>
+                            <Card.Img
+                                variant="top"
+                                src={`${process.env.REACT_APP_API_URL}/comic/image/${val._id}`}
+                            // width="473" 
+                            // height="160"
+                            />
+                            <Card.Body>
+                                <Card.Title>{val.name}</Card.Title>
+                                <Card.Text>
+                                    {val.description}
+                                </Card.Text>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                ))}
+            </Row>
+        </>
     );
 }
 export default CardSection;
