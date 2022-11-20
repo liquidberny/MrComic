@@ -75,78 +75,6 @@ router.get('/image/:id', (req, res) => {
 });
 //create comic
 router.post('/create', async (req, res) => {
-    // let { name, editorial, genre, characters, year, description, aproved } = req.body;
-    // let image = req.files;
-    // name = name.trim();
-    // editorial = editorial.trim();
-    // genre = genre.trim();
-    // // characters = characters.trim();
-    // // year = year.trim();
-    // description = description.trim();
-    // if (name == "" || description == "") {
-    //     res.json({
-    //         status: "FAILED",
-    //         message: "Empty input fields!"
-    //     });
-    // } else if (!/[^0-9\.\,\"\?\!\;\:\#\$\%\&\(\)\*\+\-\/\<\>\=\@\[\]\\\^\_\{\}\|\~]*$/.test(name)) {
-    //     res.json({
-    //         status: "FAILED",
-    //         message: "Invalid comic name entry"
-    //     })
-    // }
-    // else if (isNaN(year)) {
-    //     res.json({
-    //         status: "FAILED",
-    //         message: "Year must be a number"
-    //     })
-    // }
-    // else {
-    //     //Checking if Comic already exists
-    //     Comic.find({ name }).then(result => {
-    //         if (result.length) {
-    //             // A Comic already exists
-    //             res.json({
-    //                 status: "FAILED",
-    //                 message: "Comic with the provided name already exists"
-    //             })
-    //         } else {
-    //             // Try to create new Comic
-
-    //             let newComic = new Comic({
-    //                 name: name,
-    //                 editorial: editorial,
-    //                 genre: genre,
-    //                 characters: characters,
-    //                 year: year,
-    //                 description: description,
-    //                 aproved: aproved,
-    //             });
-    //             newComic.img.data = image.data;
-    //             newComic.img.contentType = image.mimetype;
-    //             newComic.img.name = image.name;
-
-    //             newComic.save().then(result => {
-    //                 res.json({
-    //                     status: "SUCCESS",
-    //                     message: "Comic saved!",
-    //                     data: result
-    //                 })
-    //             })
-    //                 .catch(err => {
-    //                     res.json({
-    //                         status: "FAILED",
-    //                         message: "An error occurred while saving Comic!"
-    //                     })
-    //                 })
-    //         }
-    //     }).catch(err => {
-    //         console.log(err);
-    //         res.json({
-    //             status: "FAILED",
-    //             message: "An error ocurred while checking for existing Comic!"
-    //         });
-    //     });
-    // }
     if (req.files) {
         let name = req.body.name;
         let editorial = req.body.editorial;
@@ -197,5 +125,15 @@ router.get("/read", async (req, res) => {
         res.send(result);
     })
 });
+//get latest 4
+//get comics
+router.get("/readLatest", async (req, res) => {
+    Comic.find({approved:true} ).sort({ _id: -1 }).limit(4).then((result) => {
+        // if (err) {
+        //     res.send(err);
+        // }
+        res.send(result);
+    })
 
+});
 module.exports = router;
