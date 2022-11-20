@@ -1,14 +1,19 @@
 //styles
 import { makeStyles } from '@material-ui/styles';
 import theme from '../../styles';
+
 import { useParams } from "react-router";
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
-const ComicDetails = () => {
+import { connect } from "react-redux";
+import { useHistory } from "react-router-dom";
+
+const ComicDetails = ({ user }) => {
     const { comicId } = useParams();
     const [comic, setComic] = useState([]);
     const { enqueueSnackbar } = useSnackbar();
+    const navigate = useHistory();
 
     const classes = useStyles();
     // useEffect(() => {
@@ -22,7 +27,7 @@ const ComicDetails = () => {
         ).then((response) => {
             setComic(response.data)
         }).catch((err) => {
-            enqueueSnackbar(`Error loading comics`, {
+            enqueueSnackbar(`Error loading comic details`, {
                 variant: 'error'
             });
         });
@@ -33,6 +38,17 @@ const ComicDetails = () => {
             id: comic._id
         })
         window.location.reload();
+    }
+    const deleteComic = () => {
+        axios.delete(`${process.env.REACT_APP_API_URL}/comic/delete/${comic._id}`).then(
+            enqueueSnackbar(`Comic deleted`, {
+                variant: 'success'
+            })
+        )
+        navigate.push("/")
+    }
+    const updateComic = () => {
+        navigate.push(`/updateComic/${comic._id}`)
     }
     return (
         <div className={classes.container} >
@@ -63,11 +79,25 @@ const ComicDetails = () => {
                 <p>
                     <strong>Description:</strong> {comic.description}
                 </p>
-                {comic.approved ? null : <button
-                    onClick={() => approve()}
-                >
-                    Approve
-                </button>}
+                {user.admin ? <>
+                    {comic.approved ? null : <button
+                        onClick={() => approve()}
+                    >
+                        Approve
+                    </button>}
+                    <button
+                        onClick={() => deleteComic()}
+                    >
+                        Delete
+                    </button>
+                    <button
+                        onClick={() => updateComic()}
+                    >
+                        Update
+                    </button>
+                </> : null}
+
+
 
             </div>
         </div >
@@ -86,4 +116,9 @@ const useStyles = makeStyles({
         },
     }
 });
-export default ComicDetails;
+const mapStateToProps = ({ session }) => ({
+    user: session.user
+})
+
+export default connect(mapStateToProps)(ComicDetails);
+// export default ComicDetails;
