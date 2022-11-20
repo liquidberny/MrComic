@@ -4,23 +4,28 @@ import {
     Nav,
     Navbar,
     NavDropdown,
-
 } from 'react-bootstrap';
+
 import { React, } from 'react';
 
 import { connect } from "react-redux";
 import { logoutUser } from "../../auth/actions/userActions";
 import { useHistory } from "react-router-dom";
 
+import logo from '../../assets/images/logoname.png';
+import '../../styles/navbar.css'
+
 const OurNavar = ({ user }) => {
     const navigate = useHistory();
 
     return (
-        <Navbar bg="light" expand="lg">
+        <Navbar expand="lg">
 
 
             <Container fluid>
-                <Navbar.Brand href="/">Mr. Comics</Navbar.Brand>
+                <Navbar.Brand href="/">
+                    <img src={logo} alt="logo" width="120" />
+                </Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">
                     <Nav
@@ -50,9 +55,9 @@ const OurNavar = ({ user }) => {
                                 </NavDropdown.Item>
                             </NavDropdown>
                         }
-                        {user.name ? <Button variant="outline-dark" onClick={() => logoutUser(navigate)}>Log out</Button> : null}
+                        {user.name ? <Button className='boton' onClick={() => logoutUser(navigate)}>Log out</Button> : null}
                     </Nav>
-                    
+
                 </Navbar.Collapse>
             </Container>
         </Navbar>
@@ -61,7 +66,6 @@ const OurNavar = ({ user }) => {
 const mapStateToProps = ({ session }) => ({
     user: session.user
 })
-
 
 
 export default connect(mapStateToProps, { logoutUser })(OurNavar);

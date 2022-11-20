@@ -6,6 +6,7 @@ import {
 import { useEffect, useState } from 'react';
 import { useSnackbar } from 'notistack';
 import axios from "axios"
+import '../../styles/cardsection.css'
 
 const CardSection = () => {
 
@@ -25,22 +26,20 @@ const CardSection = () => {
     }, [enqueueSnackbar])
     return (
         <>
-            <h3>Recent Comics</h3>
-            <Row xs={1} md={2} className="g-4">
+            <h1>Recent Comics</h1>
+            <hr className='hrcards'></hr>
+            <Row xs={1} md={4} className="g-4">
                 {comics.map((val) => (
                     <Col>
                         <Card>
                             <Card.Img
                                 variant="top"
                                 src={`${process.env.REACT_APP_API_URL}/comic/image/${val._id}`}
-                            // width="473" 
+                            // width="473"
                             // height="160"
                             />
                             <Card.Body>
-                                <Card.Title>{val.name}</Card.Title>
-                                <Card.Text>
-                                    {val.description}
-                                </Card.Text>
+                                <Card.Title className='cardtitle'>{val.name}</Card.Title>
                             </Card.Body>
                         </Card>
                     </Col>

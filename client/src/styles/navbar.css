@@ -1,0 +1,21 @@
+.navbar {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.container-fluid {
+  background-color: white;
+}
+
+.dropdown-item{
+  font-size: 20px;
+}
+
+.boton.btn.btn-primary {
+  font-size: 20px;
+  font-weight: 600;
+  background-color: brown;
+  border: 1px solid brown;
+  position:absolute;
+  right:0;
+}
