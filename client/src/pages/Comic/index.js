@@ -6,6 +6,7 @@ import {
 
 //styles
 import { makeStyles } from '@material-ui/styles';
+import '../../styles/comic.css'
 import theme from '../../styles';
 //import { getComics } from "../../auth/actions/comicActions"
 import { useEffect, useState } from 'react';
@@ -35,7 +36,7 @@ const Comic = ({ user }) => {
 
     }, [enqueueSnackbar])
 
-console.log(comics)
+    console.log(comics)
     return (
 
         <div className={classes.container}>
@@ -54,7 +55,6 @@ console.log(comics)
                                         <Link to={"/comic/" + val._id} style={{ color: 'inherit', textDecoration: 'none' }}>
                                             <Card.Img variant="top"
                                                 src={`${process.env.REACT_APP_API_URL}/comic/image/${val._id}`}
-
                                             />
                                             <Card.Body>
                                                 <Card.Title>{val.name}</Card.Title>
@@ -77,22 +77,21 @@ console.log(comics)
                 : null}
 
             <br />
-            <h3>Posts</h3>
-
-            <Row xs={1} md={2} className="g-4">
+            <h1>Posts</h1>
+            <Row xs={1} md={3} className="g-4">
                 {comics.map((val, key) => {
                     if (val.approved) {
 
                         return (
                             <Col>
-                                <Card>
+                                <Card className='comiccard'>
                                     <Link to={"/comic/" + val._id} style={{ color: 'inherit', textDecoration: 'none' }}>
-                                        <Card.Img variant="top" src={`${process.env.REACT_APP_API_URL}/comic/image/${val._id}`} />
+                                        <Card.Img className='imagecomic' variant="top" src={`${process.env.REACT_APP_API_URL}/comic/image/${val._id}`} />
                                         <Card.Body>
-                                            <Card.Title>{val.name}</Card.Title>
-                                            <Card.Text>
+                                            <Card.Title className='comictitle'>{val.name}</Card.Title>
+                                            {/* <Card.Text>
                                                 {val.description}
-                                            </Card.Text>
+                                            </Card.Text> */}
                                         </Card.Body>
                                     </Link>
                                 </Card>

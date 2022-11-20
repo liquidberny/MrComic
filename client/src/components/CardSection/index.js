@@ -31,8 +31,9 @@ const CardSection = () => {
             <Row xs={1} md={4} className="g-4">
                 {comics.map((val) => (
                     <Col>
-                        <Card>
+                        <Card className='homecard'>
                             <Card.Img
+                                className='imagecard'
                                 variant="top"
                                 src={`${process.env.REACT_APP_API_URL}/comic/image/${val._id}`}
                             // width="473"

@@ -37,12 +37,11 @@ const Footer = () => {
                         </Card.Body>
                     </Card>
                 </Col>
-                <Col md={4} border="dark">
 
+                <Col md={4} border="dark">
                     <Tabs
                         activeKey={key}
                         onSelect={(k) => setKey(k)}
-                        className="tabs"
                     >
                         <Tab eventKey="popular" title="Popular posts" >
                             Insert popular posts
