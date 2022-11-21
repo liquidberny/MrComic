@@ -28,3 +28,8 @@
   color: black
 }
 
+[role=tab]{
+  font-size: 20px !important;
+  font-weight: 700 !important;
+  color: black !important;
+}
