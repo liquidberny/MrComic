@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Landing from './pages/Landing';
 import Login from './pages/Login';
 import Signup from './pages/Register';
+import About from './pages/AboutUs';
 import Comic from './pages/Comic';
 import ComicDetails from './pages/ComicDeatails';
 import CreateComic from './pages/CreateComic';
@@ -35,6 +36,7 @@ function App() {
           <Route path="/login" exact component={Login} />
           <Route path="/register" exact component={Signup} />
           <Route path="/comic" exact component={Comic} />
+          <Route path="/about" exact component={About} />
           <Route path="/comic/:comicId" exact component={ComicDetails} />
           <Route path="/create" exact component={CreateComic} />
           <Route path="/updateComic/:comicId" exact component={UpdateComic} />
