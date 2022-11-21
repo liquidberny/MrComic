@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/styles';
 import theme from '../../styles';
-import imagen1 from '../../components/images/imagen3.jpg'
+import about from '../../assets/images/about.jpg'
 import '../../styles/about.css'
 
 const About = ({ user }) => {
@@ -15,7 +15,7 @@ const About = ({ user }) => {
                 </p>
                 <img
                     className='imagenabout'
-                    src={imagen1} alt="imagen1"
+                    src={about} alt="imagen1"
                 />
 
                 <div className="space">
@@ -31,7 +31,7 @@ const About = ({ user }) => {
                         Mazon Flores •
                         Urguijo Mungarro
                     </p>
-                    <p>
+                    <p className='textabout'>
                         <strong>2022</strong>{" "}
                     </p>
 
