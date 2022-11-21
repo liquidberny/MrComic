@@ -7,6 +7,11 @@
   box-shadow: 5px 5px;
 }
 
+.card-title.h5{
+  font-size: 20px;
+  font-weight: 700;
+}
+
 .tabs {
   display: flex;
   flex-wrap: wrap;
