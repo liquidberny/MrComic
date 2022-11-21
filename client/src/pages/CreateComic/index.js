@@ -12,6 +12,7 @@ import { useSnackbar } from 'notistack';
 import { useHistory } from "react-router-dom";
 import Axios from 'axios';
 import { connect } from "react-redux";
+import '../../styles/create.css';
 
 const CreateComic = ({ user }) => {
     // const classes = useStyles();
@@ -122,7 +123,7 @@ const CreateComic = ({ user }) => {
             <br />
             {user.name ?
                 <form>
-                    <h3> Create comic post </h3>
+                    <h1> Create Comic Post </h1>
 
                     <Row className="g-2">
                         <Col md>
@@ -142,9 +143,7 @@ const CreateComic = ({ user }) => {
                                     setEditorial(e.target.value)
                                 }}
                             >
-                                <Form.Select aria-label="Editorial"
-
-                                >
+                                <Form.Select aria-label="Editorial">
                                     <option value="Marvel">Marvel</option>
                                     <option value="DC">DC</option>
                                     <option value="Dark horse">Dark Horse</option>
@@ -176,12 +175,13 @@ const CreateComic = ({ user }) => {
                         <Col md>
                             <InputGroup className="mb-3">
                                 <Form.Control
+                                    className="formcharacter"
                                     placeholder="Characters"
                                     aria-label="Add comic character appearance"
                                     aria-describedby="basic-addon2"
                                     onChange={e => setCharacter(e.target.value)}
                                 />
-                                <Button variant="outline-secondary" id="button-addon2"
+                                <Button className="buttoncharacter" variant="outline-secondary" id="button-addon2"
                                     onClick={() => addCharacter()}
                                 >
                                     Add Character
@@ -216,14 +216,14 @@ const CreateComic = ({ user }) => {
                         </Col>
                         <Row className="g-2">
                             <Form.Group controlId="formFile" className="mb-3">
-                                <Form.Label>Upload an image</Form.Label>
+                                <Form.Label className='uploadtext'>Upload an image</Form.Label>
                                 <Form.Control type="file"
                                     onChange={(event) => {
                                         setImage(event.target.value);
                                         setImagen(event.target.files[0]);
                                     }} />
                             </Form.Group>
-                            <Button variant="outline-secondary"
+                            <Button className='butonimage' variant="outline-secondary"
                                 onClick={() => submmit()}
                             // type="submit"
                             >

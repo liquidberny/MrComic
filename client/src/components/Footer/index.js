@@ -7,6 +7,8 @@ import {
     Tab,
     Tabs
     } from 'react-bootstrap';
+import '../../styles/footer.css'
+
 const Footer = () => {
 
     const [key, setKey] = useState('popular');
@@ -15,7 +17,7 @@ const Footer = () => {
         <Container>
             <Row>
                 <Col md={4}>
-                    <Card style={{ minHeight: '200px' }}>
+                    <Card className='card-category' style={{ minHeight: '200px' }}>
                         <Card.Body>
                             <Card.Title>Categories</Card.Title>
                             <Card.Text>
@@ -26,7 +28,7 @@ const Footer = () => {
                     </Card>
                 </Col>
                 <Col md={4}>
-                    <Card style={{ minHeight: '200px' }}>
+                    <Card className='card-recomended' style={{ minHeight: '200px' }}>
                         <Card.Body>
                             <Card.Title>Recomendations</Card.Title>
                             <Card.Text>
@@ -35,15 +37,13 @@ const Footer = () => {
                         </Card.Body>
                     </Card>
                 </Col>
-                <Col md={4} border="dark">
 
+                <Col md={4} border="dark">
                     <Tabs
-                        id="controlled-tab-example"
                         activeKey={key}
                         onSelect={(k) => setKey(k)}
-                        className="mb-3"
                     >
-                        <Tab eventKey="popular" title="Popular posts">
+                        <Tab eventKey="popular" title="Popular posts" >
                             Insert popular posts
                         </Tab>
                         <Tab eventKey="latest" title="Latest post">
@@ -58,18 +58,18 @@ const Footer = () => {
             <br/>
             <Row>
 
-                <hr />
-                <Col md={4}>
-                    <a href="/">Home</a>
+                <hr className='hrfooter'/>
+                <Col md={4} className='footer'>
+                    <a className='home' href="/">Home</a>
                     <a> | </a>
-                    <a href="/">About Us</a>
+                    <a className='about' href="/">About Us</a>
                     <a> | </a>
-                    <a href="/">Contact Us</a>
+                    <a className='contact' href="/">Contact Us</a>
                 </Col>
                 {/* <Col md={2}>A cerca de nosotros</Col>
                 <Col md={1}>Contactanos</Col> */}
-                <Col md={{ span: 4, offset: 4 }} align="right">
-                    <a href="/">Copyright</a>
+                <Col  className='copyt' md={{ span: 4, offset: 4 }} align="right">
+                    <a className='copy' href="/">Copyright</a>
                 </Col>
             </Row>
         </Container>
