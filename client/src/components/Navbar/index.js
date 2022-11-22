@@ -14,7 +14,7 @@ import { useHistory } from "react-router-dom";
 
 import logo from '../../assets/images/logoname.png';
 import '../../styles/navbar.css'
-
+//r
 const OurNavar = ({ user }) => {
     const navigate = useHistory();
 
@@ -36,6 +36,10 @@ const OurNavar = ({ user }) => {
                         {user.name ? <Nav.Link>Welcome {user.name}</Nav.Link> : null}
                         <Nav.Link href="/about">About Us</Nav.Link>
                         <NavDropdown title="Comics" id="navbarScrollingDropdown">
+                            <NavDropdown.Item href="/recomendadion">
+                                Send recomendation
+                            </NavDropdown.Item>
+                            <NavDropdown.Divider />
                             <NavDropdown.Item href="/comic">
                                 See posts
                             </NavDropdown.Item>
