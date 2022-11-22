@@ -38,3 +38,13 @@
   font-weight: 700 !important;
   color: black !important;
 }
+
+.comic{
+  font-size: 16px;
+  font-weight: 400;
+  color: black;
+}
+
+.comic:hover{
+  color: brown;
+}

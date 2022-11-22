@@ -10,7 +10,7 @@
   box-shadow: rgba(0, 0, 0, 0.666) 0px 5px 15px;
 }
 
-.btn {
+.butondelete, .butonupdate, .butonapprove {
   align-items: center;
   appearance: none;
   background-color: brown;
@@ -43,37 +43,47 @@
   z-index: 0;
 }
 
-.btn:hover {
+.butonapprove:hover {
   background: #F6F9FE;
   color: brown;
 }
 
-.btn:active {
+.butonupdate:hover {
+  background: #F6F9FE;
+  color: brown;
+}
+
+.butondelete:hover {
+  background: #F6F9FE;
+  color: brown;
+}
+
+.butondelete, .butonupdate, .butonapprove :active {
   box-shadow: 0 4px 4px 0 rgb(60 64 67 / 30%), 0 8px 12px 6px rgb(60 64 67 / 15%);
   outline: none;
 }
 
-.sc-pyfCe.ezAxUO.loginbutton:focus {
+.butondelete, .butonupdate, .butonapprove :focus {
   outline: none;
   border: 2px solid brown;
 }
 
-.btn:not(:disabled) {
+.butondelete, .butonupdate, .butonapprove :not(:disabled) {
   box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
 }
 
-.btn:not(:disabled):hover {
+.butondelete, .butonupdate, .butonapprove :not(:disabled):hover {
   box-shadow: rgba(60, 64, 67, .3) 0 2px 3px 0, rgba(60, 64, 67, .15) 0 6px 10px 4px;
 }
 
-.btn:not(:disabled):focus {
+.butondelete, .butonupdate, .butonapprove :not(:disabled):focus {
   box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
 }
 
-.btn:not(:disabled):active {
+.butondelete, .butonupdate, .butonapprove :not(:disabled):active {
   box-shadow: rgba(60, 64, 67, .3) 0 4px 4px 0, rgba(60, 64, 67, .15) 0 8px 12px 6px;
 }
 
-.btn:disabled {
+.butondelete, .butonupdate, .butonapprove :disabled {
   box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
 }
