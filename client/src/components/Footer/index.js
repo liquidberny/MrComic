@@ -17,6 +17,7 @@ const Footer = () => {
     const [image, setImage] = useState([]);
     const [key, setKey] = useState('popular');
     const { enqueueSnackbar } = useSnackbar();
+    const [recomendations, setRecomendation] = useState([]);
 
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_API_URL}/comic/readby/Marvel`
@@ -43,6 +44,15 @@ const Footer = () => {
                 variant: 'error'
             });
         });
+        axios.get(`${process.env.REACT_APP_API_URL}/recomendation/readLatest`
+        ).then((response) => {
+            setRecomendation(response.data)
+        }).catch((err) => {
+            enqueueSnackbar(`Error loading comics`, {
+                variant: 'error'
+            });
+        });
+
 
     }, [enqueueSnackbar])
     return (
@@ -64,7 +74,13 @@ const Footer = () => {
                         <Card.Body>
                             <Card.Title>Recomendations</Card.Title>
                             <Card.Text>
-                                lorem ipsum
+                                {recomendations.map((val) => {
+                                    return (
+                                        <p>
+                                          Comic: {val.name}  
+                                        </p>
+                                    )
+                                })}
                             </Card.Text>
                         </Card.Body>
                     </Card>

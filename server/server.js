@@ -10,6 +10,7 @@ app.use(cors());
 
 const UserRouter = require('./api/User');
 const ComicRouter = require('./api/Comic')
+const RecomendadionRouter = require("./api/Recomendation")
 //For accepting post from data
 const bodyParser = require('express').json;
 app.use(bodyParser({
@@ -22,6 +23,7 @@ app.use(fileUpload());
 
 app.use('/user', UserRouter)
 app.use('/comic', ComicRouter)
+app.use("/recomendation", RecomendadionRouter)
 app.listen(port, () => {
     console.log(`server running on port ${port}`)
 })

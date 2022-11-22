@@ -12,6 +12,7 @@ import Comic from './pages/Comic';
 import ComicDetails from './pages/ComicDeatails';
 import CreateComic from './pages/CreateComic';
 import UpdateComic from './pages/UpdateComic';
+import CreateRecomendation from "./pages/Recomendation";
 import {
   BrowserRouter as Router,
   Switch,
@@ -40,6 +41,7 @@ function App() {
           <Route path="/comic/:comicId" exact component={ComicDetails} />
           <Route path="/create" exact component={CreateComic} />
           <Route path="/updateComic/:comicId" exact component={UpdateComic} />
+          <Route path="/recomendadion" exact component={CreateRecomendation} />
         </Switch>
         <footer>
           <Footer />
