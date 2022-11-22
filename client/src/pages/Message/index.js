@@ -13,10 +13,9 @@ import Axios from 'axios';
 import { connect } from "react-redux";
 import '../../styles/create.css';
 
-const CreateRecomendation = ({ user }) => {
+const CreateMessage = ({ user }) => {
     // const classes = useStyles();
-    const [name, setName] = useState("");
-    const [description, setDescription] = useState("");
+    const [content, setContent] = useState("");
     const { enqueueSnackbar } = useSnackbar();
 
 
@@ -25,24 +24,23 @@ const CreateRecomendation = ({ user }) => {
 
 
     const submmit = () => {
-        if (name === '' || description === '') {
+        if (content === '') {
             enqueueSnackbar('You have empty fields', {
                 variant: 'error'
             });
         } else {
             const formData = new FormData();
-            formData.append("name", name)
-            formData.append("description", description)
+            formData.append("content", content)
 
             Axios({
                 method: "post",
-                url: `${process.env.REACT_APP_API_URL}/recomendation/create`,
+                url: `${process.env.REACT_APP_API_URL}/message/create`,
                 data: formData,
                 headers: { "Content-Type": "multipart/form-data" },
             }).then(function (response) {
                 console.log(response);
                 navigate.push("/");
-                enqueueSnackbar('Your comic recomendation is created', {
+                enqueueSnackbar('Your message is created', {
                     variant: 'success'
                 }).then((result) => {
                     console.log(result);
@@ -62,33 +60,26 @@ const CreateRecomendation = ({ user }) => {
             <br />
             {user.name ?
                 <form>
-                    <h1> Create Comic Recomendafdion </h1>
+                    <h1> Create message </h1>
 
                     <Row className="g-2">
                         <Col md>
-                            <FloatingLabel controlId="floatingInputGrid" label="Comic name">
-                                <Form.Control type="text" placeholder="Comic name"
+                            <FloatingLabel controlId="floatingInputGrid" label="Content of message">
+                                <Form.Control type="text" placeholder="This will appear on the footer of page"
                                     onChange={e => {
-                                        setName(e.target.value)
+                                        setContent(e.target.value)
                                     }} />
                             </FloatingLabel>
                         </Col>
 
-                        <Col md>
-                            <FloatingLabel controlId="floatingInputGrid" label="Comic Description">
-                                <Form.Control type="text" placeholder="Comic description"
-                                    onChange={e => {
-                                        setDescription(e.target.value)
-                                    }} />
-                            </FloatingLabel>
-                        </Col>
+
                         <Row className="g-2">
 
                             <Button className='butonimage' variant="outline-secondary"
                                 onClick={() => submmit()}
                             // type="submit"
                             >
-                                Create comic post
+                                Send Message
                             </Button>
                         </Row>
                     </Row>
@@ -103,4 +94,4 @@ const mapStateToProps = ({ session }) => ({
     user: session.user
 })
 
-export default connect(mapStateToProps)(CreateRecomendation);
+export default connect(mapStateToProps)(CreateMessage);

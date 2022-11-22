@@ -18,7 +18,7 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-
+import CreateMessage from "./pages/Message"
 //Auth & redux
 import { connect } from "react-redux";
 
@@ -42,6 +42,8 @@ function App() {
           <Route path="/create" exact component={CreateComic} />
           <Route path="/updateComic/:comicId" exact component={UpdateComic} />
           <Route path="/recomendadion" exact component={CreateRecomendation} />
+          <Route path="/message" exact component={CreateMessage} />
+          
         </Switch>
         <footer>
           <Footer />

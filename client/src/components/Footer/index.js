@@ -18,7 +18,7 @@ const Footer = () => {
     const [key, setKey] = useState('popular');
     const { enqueueSnackbar } = useSnackbar();
     const [recomendations, setRecomendation] = useState([]);
-
+    const [message, setMessage] = useState([]);
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_API_URL}/comic/readby/Marvel`
         ).then((response) => {
@@ -53,6 +53,14 @@ const Footer = () => {
             });
         });
 
+        axios.get(`${process.env.REACT_APP_API_URL}/message/readLatest`
+        ).then((response) => {
+            setMessage(response.data)
+        }).catch((err) => {
+            enqueueSnackbar(`Error loading comics`, {
+                variant: 'error'
+            });
+        });
 
     }, [enqueueSnackbar])
     return (
@@ -61,9 +69,15 @@ const Footer = () => {
                 <Col md={4}>
                     <Card className='card-category' style={{ minHeight: '200px' }}>
                         <Card.Body>
-                            <Card.Title>Categories</Card.Title>
+                            <Card.Title>Important message</Card.Title>
                             <Card.Text>
-                                lorem ipsum
+                                {message.map((val) => {
+                                    return (
+                                        <p>
+                                            An admin says: {val.content}
+                                        </p>
+                                    )
+                                })}
                             </Card.Text>
 
                         </Card.Body>
@@ -72,12 +86,12 @@ const Footer = () => {
                 <Col md={4}>
                     <Card className='card-recomended' style={{ minHeight: '200px' }}>
                         <Card.Body>
-                            <Card.Title>Recomendations</Card.Title>
+                            <Card.Title>Recomendations for today</Card.Title>
                             <Card.Text>
                                 {recomendations.map((val) => {
                                     return (
                                         <p>
-                                          Comic: {val.name}  
+                                            Comic: {val.name}
                                         </p>
                                     )
                                 })}

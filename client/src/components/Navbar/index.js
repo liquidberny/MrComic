@@ -34,6 +34,7 @@ const OurNavar = ({ user }) => {
                         navbarScroll
                     >
                         {user.name ? <Nav.Link>Welcome {user.name}</Nav.Link> : null}
+                        {user.admin ? <Nav.Link href="/message">Send message</Nav.Link> : null}
                         <Nav.Link href="/about">About Us</Nav.Link>
                         <NavDropdown title="Comics" id="navbarScrollingDropdown">
                             <NavDropdown.Item href="/recomendadion">
