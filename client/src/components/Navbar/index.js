@@ -14,7 +14,7 @@ import { useHistory } from "react-router-dom";
 
 import logo from '../../assets/images/logoname.png';
 import '../../styles/navbar.css'
-
+//r
 const OurNavar = ({ user }) => {
     const navigate = useHistory();
 
