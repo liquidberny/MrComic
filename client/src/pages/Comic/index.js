@@ -41,23 +41,26 @@ const Comic = ({ user }) => {
 
         <div className={classes.container}>
 
-            {user.admin ? <h1>Unapproved posts</h1> : null}
+            {user.admin ? <h3>Unapproved posts</h3> : null}
             {user.admin ?
 
-                <Row xs={1} md={3} className="g-4">
+                <Row xs={1} md={2} className="g-4">
 
                     {comics.map((val, key) => {
                         if (!val.approved) {
 
                             return (
                                 <Col>
-                                    <Card className='comiccard'>
+                                    <Card>
                                         <Link to={"/comic/" + val._id} style={{ color: 'inherit', textDecoration: 'none' }}>
-                                            <Card.Img className='imagecomic' variant="top"
+                                            <Card.Img variant="top"
                                                 src={`${process.env.REACT_APP_API_URL}/comic/image/${val._id}`}
                                             />
                                             <Card.Body>
-                                                <Card.Title className='comictitle'>{val.name}</Card.Title>
+                                                <Card.Title>{val.name}</Card.Title>
+                                                <Card.Text>
+                                                    {val.description}
+                                                </Card.Text>
                                             </Card.Body>
                                         </Link>
                                     </Card>
@@ -75,7 +78,7 @@ const Comic = ({ user }) => {
 
             <br />
             <h1>Posts</h1>
-            <Row xs={1} md={4} className="g-4">
+            <Row xs={1} md={3} className="g-4">
                 {comics.map((val, key) => {
                     if (val.approved) {
 

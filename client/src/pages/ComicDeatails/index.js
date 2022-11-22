@@ -1,7 +1,6 @@
 //styles
 import { makeStyles } from '@material-ui/styles';
 import theme from '../../styles';
-import '../../styles/details.css'
 
 import { useParams } from "react-router";
 import { useEffect, useState } from "react";
@@ -54,48 +53,44 @@ const ComicDetails = ({ user }) => {
     return (
         <div className={classes.container} >
             <img
-                className='comic-image'
                 src={`${process.env.REACT_APP_API_URL}/comic/image/${comic._id}`}
                 alt={"imagen de comic"}
             />
-            <div className='details'>
-                <p className='text-details'>
+            <div >
+                <p >
                     <strong>Title:</strong> {comic.name}
                 </p>
-                <p className='text-details'>
+                <p>
                     <strong>Editorial:</strong>{" "}
                     {comic.editorial}
                 </p>
-                <p className='text-details'>
+                <p>
                     <strong>Genres:</strong>{" "}
                     {comic.genre}
                 </p>
-                <p className='text-details'>
+                <p>
                     <strong>Year:</strong>{" "}
                     {comic.year}
                 </p>
-                <p className='text-details'>
+                <p>
                     <strong>Characters:</strong>{" "}
                     {comic.characters}
                 </p>
-                <p className='text-details'>
+                <p>
                     <strong>Description:</strong> {comic.description}
                 </p>
                 {user.admin ? <>
                     {comic.approved ? null : <button
-                        className='btn'
                         onClick={() => approve()}
                     >
                         Approve
                     </button>}
-                    &nbsp;
-                    <button className='btn'
+                    <button
                         onClick={() => deleteComic()}
                     >
                         Delete
                     </button>
-                    &nbsp;
-                    <button className='btn'
+                    <button
                         onClick={() => updateComic()}
                     >
                         Update

@@ -1,46 +1,41 @@
 import { makeStyles } from '@material-ui/styles';
 import theme from '../../styles';
-import about from '../../assets/images/about.jpg'
-import '../../styles/about.css'
+import imagen1 from '../../components/images/imagen3.jpg'
+
 
 const About = ({ user }) => {
     const classes = useStyles();
-
+    
     return (
         <div className={classes.container} >
-
             <div >
                 <p >
-                    <h1>About us</h1>
+                    <strong>About us</strong>
                 </p>
                 <img
-                    className='imagenabout'
-                    src={about} alt="imagen1"
+                src={imagen1} alt="imagen1"
                 />
-
-                <div className="space">
-                    <p className='textabout'>
-                        Este es un proyecto realizado para la materia de Practica de Desarrollo 2{" "}
-                    </p>
-
-                    <p className='textabout'>
-                        <strong>Equipo:</strong>{" "}
-                        Anaya Arias •
-                        Dueñas Salman •
-                        Castillo Morales •
-                        Mazon Flores •
-                        Urguijo Mungarro
-                    </p>
-                    <p className='textabout'>
-                        <strong>2022</strong>{" "}
-                    </p>
-
-                </div>
+                <p>
+                    Este es un proyecto realizado para la materia de Practica de Desarrollo 2{" "}
+                </p>
+                <p>
+                    <strong>Equipo:</strong>{" "}
+                    Anaya Arias
+                    Dueñas Salman
+                    Castillo Morales
+                    Mazon Flores
+                    Urguijo Mungarro
+                </p>
+                <p>
+                    <strong>2022</strong>{" "}
+                </p>
+    
             </div>
         </div >
     )
+    
 
-}
+ } 
 
 const useStyles = makeStyles({
     container: {
