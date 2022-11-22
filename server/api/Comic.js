@@ -117,6 +117,17 @@ router.post('/create', async (req, res) => {
 });
 
 //get comics
+router.get("/:editorial", async (req, res) => {
+    let editorial = req.params.editorial;
+
+    Comic.find({editorial: editorial}, (err, result) => {
+        if (err) {
+            res.send(err);
+        }
+        res.send(result);
+    })
+});
+//get comics
 router.get("/read", async (req, res) => {
     Comic.find({}, (err, result) => {
         if (err) {
@@ -126,7 +137,6 @@ router.get("/read", async (req, res) => {
     })
 });
 //get latest 4
-//get comics
 router.get("/readLatest", async (req, res) => {
     Comic.find({approved:true} ).sort({ _id: -1 }).limit(4).then((result) => {
         // if (err) {
@@ -136,4 +146,5 @@ router.get("/readLatest", async (req, res) => {
     })
 
 });
+
 module.exports = router;
