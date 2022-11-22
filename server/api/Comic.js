@@ -73,6 +73,7 @@ router.get('/image/:id', (req, res) => {
         }
     })
 });
+
 //create comic
 router.post('/create', async (req, res) => {
     if (req.files) {
@@ -125,10 +126,20 @@ router.get("/read", async (req, res) => {
         res.send(result);
     })
 });
-//get latest 4
+//get by editorial
+router.get("/readby/:editorial", async (req, res) => {
+    let editorial = req.params.editorial;
+
+    Comic.find({ editorial: editorial }, (err, result) => {
+        if (err) {
+            res.send(err);
+        }
+        res.send(result);
+    })
+});
 //get comics
 router.get("/readLatest", async (req, res) => {
-    Comic.find({approved:true} ).sort({ _id: -1 }).limit(4).then((result) => {
+    Comic.find({ approved: true }).sort({ _id: -1 }).limit(4).then((result) => {
         // if (err) {
         //     res.send(err);
         // }
