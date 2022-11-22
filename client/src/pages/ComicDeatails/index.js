@@ -83,19 +83,19 @@ const ComicDetails = ({ user }) => {
                 </p>
                 {user.admin ? <>
                     {comic.approved ? null : <button
-                        className='btnapprove'
+                        className='butonapprove'
                         onClick={() => approve()}
                     >
                         Approve
                     </button>}
                     &nbsp;
-                    <button className='btndelete'
+                    <button className='butondelete'
                         onClick={() => deleteComic()}
                     >
                         Delete
                     </button>
                     &nbsp;
-                    <button className='btnupdate'
+                    <button className='butonupdate'
                         onClick={() => updateComic()}
                     >
                         Update
