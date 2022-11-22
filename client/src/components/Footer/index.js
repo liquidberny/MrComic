@@ -107,19 +107,19 @@ const Footer = () => {
                     >
                         <Tab eventKey="marvel" title="Marvel posts" >
                             {marvel.map((val) => {
-                                return (<a className='comic' href={`/comic/${val._id}`}>{val.name}</a>)
+                                return (<a className='comic' href={`/comic/${val._id}`}>{val.name}&ensp;</a>)
                             })}
 
 
                         </Tab>
                         <Tab eventKey="dc" title="DC post">
                             {dc.map((val) => {
-                                return (<a className='comic' href={`/comic/${val._id}`}>{val.name}</a>)
+                                return (<a className='comic' href={`/comic/${val._id}`}>{val.name}&ensp;</a>)
                             })}
                         </Tab>
                         <Tab eventKey="comments" title="Image Comics Posts" >
                             {image.map((val) => {
-                                return (<a className='comic' href={`/comic/${val._id}`}>{val.name}</a>)
+                                return (<a className='comic' href={`/comic/${val._id}`}>{val.name}&ensp;</a>)
                             })}
                         </Tab>
                     </Tabs>

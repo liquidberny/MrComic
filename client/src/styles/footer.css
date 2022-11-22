@@ -44,3 +44,7 @@
   font-weight: 400;
   color: black;
 }
+
+.comic:hover{
+  color: brown;
+}
