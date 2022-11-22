@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Row,
     Container,
@@ -6,13 +6,45 @@ import {
     Card,
     Tab,
     Tabs
-    } from 'react-bootstrap';
+} from 'react-bootstrap';
 import '../../styles/footer.css'
+import { useSnackbar } from 'notistack';
+import axios from "axios"
 
 const Footer = () => {
-
+    const [marvel, setMarvel] = useState([]);
+    const [dc, setDC] = useState([]);
+    const [image, setImage] = useState([]);
     const [key, setKey] = useState('popular');
+    const { enqueueSnackbar } = useSnackbar();
 
+    useEffect(() => {
+        axios.get(`${process.env.REACT_APP_API_URL}/comic/readby/Marvel`
+        ).then((response) => {
+            setMarvel(response.data)
+        }).catch((err) => {
+            enqueueSnackbar(`Error loading comics`, {
+                variant: 'error'
+            });
+        });
+        axios.get(`${process.env.REACT_APP_API_URL}/comic/readby/DC`
+        ).then((response) => {
+            setDC(response.data)
+        }).catch((err) => {
+            enqueueSnackbar(`Error loading comics`, {
+                variant: 'error'
+            });
+        });
+        axios.get(`${process.env.REACT_APP_API_URL}/comic/readby/Image`
+        ).then((response) => {
+            setImage(response.data)
+        }).catch((err) => {
+            enqueueSnackbar(`Error loading comics`, {
+                variant: 'error'
+            });
+        });
+
+    }, [enqueueSnackbar])
     return (
         <Container>
             <Row>
@@ -43,22 +75,30 @@ const Footer = () => {
                         activeKey={key}
                         onSelect={(k) => setKey(k)}
                     >
-                        <Tab eventKey="popular" title="Popular posts" >
-                            Insert popular posts
+                        <Tab eventKey="marvel" title="Marvel posts" >
+                            {marvel.map((val) => {
+                                return (<a className='comic' href={`/comic/${val._id}`}>{val.name}</a>)
+                            })}
+
+
                         </Tab>
-                        <Tab eventKey="latest" title="Latest post">
-                            Latest posts here
+                        <Tab eventKey="dc" title="DC post">
+                            {dc.map((val) => {
+                                return (<a className='comic' href={`/comic/${val._id}`}>{val.name}</a>)
+                            })}
                         </Tab>
-                        <Tab eventKey="comments" title="Recents comments" >
-                            Recents comments
+                        <Tab eventKey="comments" title="Image Comics Posts" >
+                            {image.map((val) => {
+                                return (<a className='comic' href={`/comic/${val._id}`}>{val.name}</a>)
+                            })}
                         </Tab>
                     </Tabs>
                 </Col>
             </Row>
-            <br/>
+            <br />
             <Row>
 
-                <hr className='hrfooter'/>
+                <hr className='hrfooter' />
                 <Col md={4} className='footer'>
                     <a className='home' href="/">Home</a>
                     <a> | </a>
@@ -68,7 +108,7 @@ const Footer = () => {
                 </Col>
                 {/* <Col md={2}>A cerca de nosotros</Col>
                 <Col md={1}>Contactanos</Col> */}
-                <Col  className='copyt' md={{ span: 4, offset: 4 }} align="right">
+                <Col className='copyt' md={{ span: 4, offset: 4 }} align="right">
                     <a className='copy' href="/">Copyright</a>
                 </Col>
             </Row>
